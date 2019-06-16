@@ -1,0 +1,45 @@
+<resources>
+    <string name="app_name">Almag</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="action_settings">Settings</string>
+    <string name="tabHomeDetails">Details</string>
+    <string name="tabHomeCalendar">Calendar</string>
+    <string name="durationOfTreatment">"%d / %d days"</string>
+    <string name="durationOfProcedure">Duration of procedure %d minutes</string>
+    <string name="daily">Daily</string>
+    <string name="weekly">Weekly</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
+    <string name="title_activity_new_timetable">New timetable</string>
+    <string name="durationOfProcedureNewTimetable">Duration of procedure(minutes)</string>
+    <string name="repeatNewTimetable">Interval(days)</string>
+    <string name="nameOfTreatment">Treatment</string>
+    <string name="nameOfTimetable">Plan</string>
+    <string name="ok">ОК</string>
+    <string name="every_day">Every %d days</string>
+    <string name="countOfProcedures">Count of procedures</string>
+    <string name="NeedUpdateBase">You need to update your database!</string>
+    <string name="loading">Loading data...</string>
+    <string name="diseases_nav_menu">Diseases</string>
+    <string name="magnetotherapy_nav_menu">Magnetotherapy</string>
+    <string name="almag_plus_nav_menu">Almag+</string>
+    <string name="nav_header_title">Almag</string>
+    <string name="nav_header_subtitle">Subtitle</string>
+    <string name="nav_header_desc">App description</string>
+    <string name="mode">Mode</string>
+    <string name="planTreatingView">Plan of treating. View</string>
+    <string name="planTreatingDetails">Plan of treating. Details</string>
+    <string name="planTreatingCalendar">Plan of treating. Calendar</string>
+    <string name="aboutDetailsMainActivity">Detailed information about the treatment Plan</string>
+    <string name="aboutCalendarMainActivity">Treating plan for 7 days</string>
+    <string name="cancel">Cancel</string>
+    <string name="remindBefore">Remind before</string>
+    <string name="AlmagPlus">ALMAG+</string>
+
+    <string-array name="remindBefore">
+        <item>не напоминать</item>
+        <item>5 минут</item>
+        <item>10 минут</item>
+        <item>15 минут</item>
+    </string-array>
+</resources>

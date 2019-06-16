@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/diseases"
+            android:icon="@drawable/diseases"
+            android:title="@string/diseases_nav_menu" />
+        <item
+            android:id="@+id/magnetotherapy"
+            android:icon="@drawable/magnetotherapy"
+            android:title="@string/magnetotherapy_nav_menu" />
+        <item
+            android:id="@+id/almag_plus"
+            android:title="@string/almag_plus_nav_menu"/>
+    </group>
+</menu>

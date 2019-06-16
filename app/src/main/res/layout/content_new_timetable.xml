@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.NewTimetableActivity"
+    tools:showIn="@layout/activity_new_timetable">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="90dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:scrollbars="vertical">
+
+        <TimePicker
+            android:id="@+id/timeNewTimetable"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:timePickerMode="spinner"></TimePicker>
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:scrollbars="vertical">
+
+            <View
+                android:id="@+id/divider"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?android:attr/listDivider" />
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/height_of_row">
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/height_of_row"
+                    android:labelFor="@id/disease_name"
+                    android:paddingLeft="@dimen/padding_between_elements_in_row"
+                    android:text="@string/nameOfTreatment" />
+
+                <Spinner
+                    android:id="@+id/disease_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/height_of_row" />
+
+            </TableRow>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?android:attr/listDivider" />
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/height_of_row">
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/height_of_row"
+                    android:gravity="center_vertical"
+                    android:labelFor="@id/plan_name"
+                    android:paddingLeft="@dimen/padding_between_elements_in_row"
+                    android:text="@string/nameOfTimetable" />
+
+                <Spinner
+                    android:id="@+id/plan_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/height_of_row" />
+            </TableRow>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?android:attr/listDivider" />
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/height_of_row">
+
+                <TextView
+                    android:id="@+id/textView8"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/height_of_row"
+                    android:gravity="center_vertical"
+                    android:labelFor="@id/editTextInterval"
+                    android:paddingLeft="@dimen/padding_between_elements_in_row"
+                    android:text="@string/repeatNewTimetable" />
+
+                <EditText
+                    android:id="@+id/editTextInterval"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/height_of_row"
+                    android:background="@android:color/transparent"
+                    android:inputType="number"
+                    android:paddingLeft="@dimen/padding_between_elements_in_row"
+                    android:text="1" />
+            </TableRow>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?android:attr/listDivider" />
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/height_of_row">
+
+                <TextView
+                    android:id="@+id/textViewCountOfProcedures"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/height_of_row"
+                    android:gravity="center_vertical"
+                    android:labelFor="@id/editTextCountOfProcedures"
+                    android:paddingLeft="@dimen/padding_between_elements_in_row"
+                    android:text="@string/countOfProcedures" />
+
+                <EditText
+                    android:id="@+id/editTextCountOfProcedures"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/transparent"
+                    android:inputType="number"
+                    android:paddingLeft="@dimen/padding_between_elements_in_row"
+                    android:text="1" />
+            </TableRow>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?android:attr/listDivider" />
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/height_of_row">
+
+                <TextView
+                    android:id="@+id/textViewRemindBefore"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/height_of_row"
+                    android:gravity="center_vertical"
+                    android:labelFor="@id/spinner_remindBefore"
+                    android:paddingLeft="@dimen/padding_between_elements_in_row"
+                    android:text="@string/remindBefore" />
+
+                <Spinner
+                    android:id="@+id/spinner_remindBefore"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/height_of_row"
+                    android:entries="@array/remindBefore" />
+
+            </TableRow>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?android:attr/listDivider" />
+        </TableLayout>
+
+
+    </LinearLayout>
+
+</ScrollView>

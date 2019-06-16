@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#00953F</color>
+    <color name="blue">#FF33B5E5</color>
+    <color name="mainColor">#00953F</color>
+    <color name="transparent">#80818181</color>
+    <color name="textColorForMainActivity">#339966</color>
+    <color name="uncheckedItem">#E1EFDF</color>
+    <color name="white">#FFFFFF</color>
+</resources>

@@ -1,0 +1,39 @@
+<resources>
+    <string name="app_name">Almag</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="action_settings">Настройки</string>
+    <string name="tabHomeDetails">Детали</string>
+    <string name="tabHomeCalendar">Календарь</string>
+    <string name="durationOfTreatment">"%d / %d дней"</string>
+    <string name="durationOfProcedure">Длительность процедуры %d минут</string>
+    <string name="daily">Ежедневно</string>
+    <string name="weekly">Еженедельно</string>
+    <string name="edit">Редактировать</string>
+    <string name="delete">Удалить</string>
+    <string name="title_activity_new_timetable">Новая цель</string>
+    <string name="durationOfProcedureNewTimetable">Длительность процедуры(минут)</string>
+    <string name="repeatNewTimetable">Интервал(дней)</string>
+    <string name="nameOfTreatment">Заболевание</string>
+    <string name="nameOfTimetable">План лечения</string>
+    <string name="ok">ОК</string>
+    <string name="every_day">Каждые %d дней</string>
+    <string name="countOfProcedures">Количество процедур</string>
+    <string name="NeedUpdateBase">Необходимо произвести обновление базы заболеваний!</string>
+    <string name="loading">Загружаются данные заболеваний...</string>
+    <string name="diseases_nav_menu">Заболевания</string>
+    <string name="magnetotherapy_nav_menu">Магнитотерапия</string>
+    <string name="almag_plus_nav_menu">Алмаг+</string>
+    <string name="nav_header_title">Алмаг</string>
+    <string name="nav_header_subtitle">Подзаголовок</string>
+    <string name="nav_header_desc">Описание приложения</string>
+    <string name="mode">Режим</string>
+    <string name="planTreatingView">ПЛАН ЛЕЧЕНИЯ. Вид</string>
+    <string name="planTreatingDetails">ПЛАН ЛЕЧЕНИЯ. Детали</string>
+    <string name="planTreatingCalendar">ПЛАН ЛЕЧЕНИЯ. Календарь</string>
+    <string name="aboutDetailsMainActivity">Подробная информация о Плане лечения</string>
+    <string name="aboutCalendarMainActivity">План лечения на 7 дней</string>
+    <string name="cancel">ОТМЕНА</string>
+    <string name="remindBefore">Напомнить за</string>
+    <string name="AlmagPlus">АЛМАГ+</string>
+
+</resources>
