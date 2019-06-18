@@ -10,6 +10,8 @@ public class Calendar {
 
     private Timetable timetable = new Timetable();
     List<Date> dates = new ArrayList<>();
+    List<Integer> ratesBefore = new ArrayList<>();
+    List<Integer> ratesAfter = new ArrayList<>();
 
     public Timetable getTimetable() {
         return timetable;
@@ -23,4 +25,19 @@ public class Calendar {
         return dates;
     }
 
+    public List<Integer> getRatesBefore() {
+        return ratesBefore;
+    }
+
+    public void setRatesBefore(List<Integer> ratesBefore) {
+        this.ratesBefore = ratesBefore;
+    }
+
+    public List<Integer> getRatesAfter() {
+        return ratesAfter;
+    }
+
+    public void setRatesAfter(List<Integer> ratesAfter) {
+        this.ratesAfter = ratesAfter;
+    }
 }

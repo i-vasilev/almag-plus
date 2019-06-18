@@ -26,10 +26,40 @@
         app:sizeMiddleText="20sp"
         app:textColorSelected="#ffffff" />
 
-    <ImageView
-        android:id="@+id/imageMan"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/imageMan"
+            android:layout_width="wrap_content"
+            android:layout_height="200dp"
+            android:layout_gravity="center_horizontal"
+            android:paddingTop="15dp" />
+
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/lineChart"
+            android:layout_width="200dp"
+            android:layout_height="200dp" />
+    </LinearLayout>
+
+    <RatingBar
+        android:id="@+id/ratingBarBefore"
+        style="@style/CustomRatingBar"
         android:layout_width="wrap_content"
-        android:paddingTop="15dp"
-        android:layout_height="200dp"
-        android:layout_gravity="center_horizontal" />
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:max="5"
+        android:stepSize="1" />
+
+    <RatingBar
+        android:id="@+id/ratingBarAfter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:max="5"
+        android:stepSize="1" />
+
 </LinearLayout>

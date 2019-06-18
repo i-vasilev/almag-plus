@@ -44,7 +44,7 @@ public class UpdaterData {
         UpdaterData.calendarAdapter = calendarAdapter;
     }
 
-    public static List<Procedure> getProceduresByIdTreatment(int id, SQLiteDatabase database) {
+    public static List<Procedure> getProceduresByIdTimetable(int id, SQLiteDatabase database) {
         List<Procedure> procedures = new ArrayList<>();
         Cursor cursorProcedures = database.query(DBHelper.TABLE_PROCEDURES, null,
                 DBHelper.KEY_TIMETABLE_PROCEDURES + " = ? ", new String[]{Integer.toString(id)},
@@ -91,7 +91,7 @@ public class UpdaterData {
                 timetable.setInterval(cursor.getInt(intervalIndex));
                 timetable.setRemindBefore(RemindBefore.valueOf(cursor.getInt(remindBefore)));
 
-                timetable.setProcedureList(getProceduresByIdTreatment(timetable.getId(), database));
+                timetable.setProcedureList(getProceduresByIdTimetable(timetable.getId(), database));
                 timetable.setDurationOfTreatment(timetable.getProcedureList().size());
                 timetable.setTime(cursor.getLong(timeIndex));
 
@@ -101,9 +101,13 @@ public class UpdaterData {
                 Calendar calendar = new Calendar();
                 calendar.setTimetable(timetable);
                 int dateIndex = cursorProcedures.getColumnIndex(DBHelper.KEY_DAY_PROCEDURES);
+                int rateBeforeIndex = cursorProcedures.getColumnIndex(DBHelper.KEY_RATE_BEFORE_PROCEDURES);
+                int rateAfterIndex = cursorProcedures.getColumnIndex(DBHelper.KEY_RATE_AFTER_PROCEDURES);
                 if (cursorProcedures.moveToFirst()) {
                     do {
                         calendar.getDates().add(new Date(cursorProcedures.getLong(dateIndex)));
+                        calendar.getRatesBefore().add(cursorProcedures.getInt(rateBeforeIndex));
+                        calendar.getRatesAfter().add(cursorProcedures.getInt(rateAfterIndex));
                     } while (cursorProcedures.moveToNext());
                 }
                 calendars.add(calendar);
@@ -113,6 +117,19 @@ public class UpdaterData {
         cursor.close();
 
         plans = getPlans();
+    }
+
+    public static void setRating(int position, int rate, int idTimetable, boolean isAfter) {
+        DBHelper dbHelper = DBHelper.getInstance();
+        SQLiteDatabase database = dbHelper.getReadableDatabase();
+        ContentValues contentValues = new ContentValues();
+        String cell = isAfter ? DBHelper.KEY_RATE_AFTER_PROCEDURES : DBHelper.KEY_RATE_BEFORE_PROCEDURES;
+        contentValues.put(cell, rate);
+
+        database.update(DBHelper.TABLE_PROCEDURES, contentValues,
+                DBHelper.KEY_TIMETABLE_PROCEDURES + " = ? AND " + DBHelper.KEY_ID_PROCEDURES + " = ? ",
+                new String[]{String.valueOf(idTimetable),
+                        String.valueOf(getProceduresByIdTimetable(idTimetable, database).get(position).getId())});
     }
 
     public static void insertNewTimetable(Timetable timetable, Context context) {

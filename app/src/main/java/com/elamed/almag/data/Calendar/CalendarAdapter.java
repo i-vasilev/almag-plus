@@ -6,15 +6,23 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.elamed.almag.R;
+import com.elamed.almag.data.UpdaterData;
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 
 import java.io.File;
 import java.io.IOException;
@@ -55,19 +63,55 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.ViewHo
     @Override
     public void onBindViewHolder(CalendarAdapter.ViewHolder holder, int position) {
         final Calendar calendar = calendars.get(position);
-        //holder.horizontalCalendar.setRange();
         holder.nameView.setText(calendar.getTimetable().getName());
         holder.imageView.setImageBitmap(ImageViaAssets(calendar.getTimetable().getImage()));
         holder.calendarView = calendar;
+        holder.position = position;
+        fillChart(holder, position);
+    }
 
-        if (listener != null) {
-            holder.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    listener.onVariantClick(calendar);
-                }
-            });
+    public void fillChart(CalendarAdapter.ViewHolder holder, int position) {
+        final Calendar calendar = calendars.get(position);
+        holder.lineChart.resetTracking();
+        ArrayList<ILineDataSet> dataSets = new ArrayList<>();
+        for (int k = 0; k < 2; k++) {
+            if (listener != null) {
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        listener.onVariantClick(calendar);
+                    }
+                });
+            }
+            ArrayList<Entry> values = new ArrayList<>();
+            List<Integer> rates = new ArrayList<>();
+            int color;
+            String name = "Оценка до";
+            if (k == 0) {
+                rates = calendar.getRatesAfter();
+                color = holder.colorAfter;
+                name = "Оценка после";
+            } else {
+                rates = calendar.getRatesBefore();
+                color = holder.colorBefore;
+            }
+            for (int i = 0; i < rates.size(); i++) {
+                double val = rates.get(i);
+                values.add(new Entry(i, (float) val));
+            }
+
+            LineDataSet d = new LineDataSet(values, name);
+            d.setLineWidth(2.5f);
+            d.setCircleRadius(4f);
+
+            d.setColor(color);
+            d.setCircleColor(color);
+            dataSets.add(d);
+
         }
+        LineData data = new LineData(dataSets);
+        holder.lineChart.setData(data);
+        holder.lineChart.invalidate();
     }
 
     public void setListener(onClickListener listener) {
@@ -97,11 +141,17 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.ViewHo
         final TextView nameView;
         final HorizontalCalendar horizontalCalendar;
         final ImageView imageView;
+        RatingBar ratingBarBefore;
+        RatingBar ratingBarAfter;
+        LineChart lineChart;
         Calendar calendarView;
+        final int colorBefore;
+        final int colorAfter;
+        int position;
+        int selectedPosition = -1;
 
         ViewHolder(View view) {
             super(view);
-
             /* start before 1 month from now */
             java.util.Calendar startDate = java.util.Calendar.getInstance();
             startDate.add(java.util.Calendar.MONTH, -1);
@@ -109,10 +159,63 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.ViewHo
             java.util.Calendar endDate = java.util.Calendar.getInstance();
             endDate.add(java.util.Calendar.MONTH, 1);
 
+            lineChart = view.findViewById(R.id.lineChart);
+            lineChart.setDrawGridBackground(false);
+            lineChart.getDescription().setEnabled(false);
+            lineChart.setDrawBorders(false);
+
+            lineChart.getAxisLeft().setEnabled(false);
+            lineChart.getAxisRight().setDrawAxisLine(false);
+            lineChart.getAxisRight().setDrawGridLines(false);
+            lineChart.getXAxis().setDrawAxisLine(false);
+            lineChart.getXAxis().setDrawGridLines(false);
+
+
+            // enable touch gestures
+            lineChart.setTouchEnabled(true);
+
+            // enable scaling and dragging
+            lineChart.setDragEnabled(true);
+            lineChart.setScaleEnabled(true);
+
+            // if disabled, scaling can be done on x- and y-axis separately
+            lineChart.setPinchZoom(false);
+
+            ratingBarBefore = view.findViewById(R.id.ratingBarBefore);
+            ratingBarBefore.setNumStars(5);
+            ratingBarBefore.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+                @Override
+                public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+                    if (selectedPosition != -1) {
+                        UpdaterData.setRating(selectedPosition, (int) rating,
+                                calendarView.getTimetable().getId(), false);
+                        UpdaterData.selectAllDataFromDB();
+                        CalendarAdapter.this.calendars = UpdaterData.calendars;
+                        CalendarAdapter.this.fillChart(ViewHolder.this, position);
+                    }
+                }
+            });
+
+            ratingBarAfter = view.findViewById(R.id.ratingBarAfter);
+            ratingBarAfter.setNumStars(5);
+            ratingBarAfter.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+                @Override
+                public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+                    if (selectedPosition != -1) {
+                        UpdaterData.setRating(selectedPosition, (int) rating,
+                                calendarView.getTimetable().getId(), true);
+                        UpdaterData.selectAllDataFromDB();
+                        CalendarAdapter.this.calendars = UpdaterData.calendars;
+                        CalendarAdapter.this.fillChart(ViewHolder.this, position);
+                    }
+                }
+            });
             nameView = view.findViewById(R.id.name);
 
-            imageView = view.findViewById(R.id.imageMan);
+            colorBefore = view.getResources().getColor(R.color.rateBefore);
+            colorAfter = view.getResources().getColor(R.color.mainColor);
 
+            imageView = view.findViewById(R.id.imageMan);
 
             horizontalCalendar = new HorizontalCalendar.Builder(view, R.id.calendarView2)
                     .range(startDate, endDate)
@@ -131,14 +234,22 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.ViewHo
                         @Override
                         public List<CalendarEvent> events(java.util.Calendar date) {
                             List<CalendarEvent> events = new ArrayList<>();
+                            int i = 0;
                             for (Date d :
                                     calendarView.getDates()) {
+                                java.util.Calendar now = java.util.Calendar.getInstance();
                                 java.util.Calendar c = java.util.Calendar.getInstance();
                                 c.setTimeInMillis(d.getTime());
 
 
                                 if (date.get(java.util.Calendar.DAY_OF_YEAR) == c.get(java.util.Calendar.DAY_OF_YEAR)) {
                                     events.add(new CalendarEvent(Color.rgb(255, 255, 255), "event"));
+                                    i++;
+                                }
+                                if (c.get(java.util.Calendar.DAY_OF_YEAR) == now.get(java.util.Calendar.DAY_OF_YEAR)) {
+                                    selectedPosition = i - 1;
+                                    ratingBarAfter.setRating(calendarView.ratesAfter.get(selectedPosition));
+                                    ratingBarBefore.setRating(calendarView.ratesBefore.get(selectedPosition));
                                 }
                             }
 
@@ -150,8 +261,28 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.ViewHo
             horizontalCalendar.setCalendarListener(new HorizontalCalendarListener() {
                 @Override
                 public void onDateSelected(java.util.Calendar date, int position) {
-                }
+                    boolean isSelectedFromList = false;
+                    for (int i = 0; i < calendarView.getDates().size(); i++) {
+                        java.util.Calendar c = java.util.Calendar.getInstance();
+                        c.setTimeInMillis(calendarView.dates.get(i).getTime());
 
+                        if (date.get(java.util.Calendar.DAY_OF_YEAR) == c.get(java.util.Calendar.DAY_OF_YEAR)) {
+                            selectedPosition = i;
+                            ratingBarAfter.setRating(calendarView.ratesAfter.get(i));
+                            ratingBarBefore.setRating(calendarView.ratesBefore.get(i));
+                            isSelectedFromList = true;
+                            break;
+                        }
+                    }
+
+                    selectedPosition = isSelectedFromList ? selectedPosition : -1;
+                    ratingBarBefore.setEnabled(isSelectedFromList);
+                    ratingBarAfter.setEnabled(isSelectedFromList);
+                    if (!isSelectedFromList) {
+                        ratingBarBefore.setRating(0);
+                        ratingBarAfter.setRating(0);
+                    }
+                }
             });
         }
     }

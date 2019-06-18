@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.RatingBar;
 
 import com.elamed.almag.R;
 import com.elamed.almag.ToolbarSizer;
