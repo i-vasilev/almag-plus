@@ -240,11 +240,11 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.ViewHo
                                 java.util.Calendar now = java.util.Calendar.getInstance();
                                 java.util.Calendar c = java.util.Calendar.getInstance();
                                 c.setTimeInMillis(d.getTime());
+                                i++;
 
 
                                 if (date.get(java.util.Calendar.DAY_OF_YEAR) == c.get(java.util.Calendar.DAY_OF_YEAR)) {
                                     events.add(new CalendarEvent(Color.rgb(255, 255, 255), "event"));
-                                    i++;
                                 }
                                 if (c.get(java.util.Calendar.DAY_OF_YEAR) == now.get(java.util.Calendar.DAY_OF_YEAR)) {
                                     selectedPosition = i - 1;
