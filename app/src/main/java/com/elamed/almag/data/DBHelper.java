@@ -216,7 +216,7 @@ public class DBHelper extends SQLiteOpenHelper {
         db.insertOrThrow(TABLE_DISEASES, null, valuesDiseases);
         valuesDiseases.clear();
         valuesDiseases.put(KEY_ID_ADDITIONAL_ARTICLES, 0);
-        valuesDiseases.put(KEY_ARTICLE_ADDITIONAL_ARTICLES, "Описания Алмага+ нет. Для дальнейшей работы загрузите данные с интернета!");
+        valuesDiseases.put(KEY_ARTICLE_ADDITIONAL_ARTICLES, getStringFile("articles/almag_plus.html"));
         valuesDiseases.put(KEY_VERSION_ADDITIONAL_ARTICLES, 1);
         valuesDiseases.put(KEY_PREF_TYPE_ADDITIONAL_ARTICLE, PREF_ALMAG);
         db.insertOrThrow(TABLE_ADDITIONAL_ARTICLES, null, valuesDiseases);

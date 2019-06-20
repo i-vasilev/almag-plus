@@ -27,9 +27,9 @@
     <string name="nav_header_subtitle">Subtitle</string>
     <string name="nav_header_desc">App description</string>
     <string name="mode">Mode</string>
-    <string name="planTreatingView">Plan of treating. View</string>
-    <string name="planTreatingDetails">Plan of treating. Details</string>
-    <string name="planTreatingCalendar">Plan of treating. Calendar</string>
+    <string name="planTreatingView">Plan of treating</string>
+    <string name="planTreatingDetails">Plan of treating</string>
+    <string name="planTreatingCalendar">Plan of treating</string>
     <string name="aboutDetailsMainActivity">Detailed information about the treatment Plan</string>
     <string name="aboutCalendarMainActivity">Treating plan for 7 days</string>
     <string name="cancel">Cancel</string>

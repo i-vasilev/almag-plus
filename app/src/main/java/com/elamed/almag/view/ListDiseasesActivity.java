@@ -42,7 +42,7 @@ public class ListDiseasesActivity extends AppCompatActivity {
         layout.setLayoutParams(params);
 
         List<String> listNames = UpdaterData.getStringDiseases();
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, listNames);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.drawer_list_item, listNames);
         ListView listView = findViewById(R.id.list_item_diseases);
         listView.setAdapter(adapter);
 

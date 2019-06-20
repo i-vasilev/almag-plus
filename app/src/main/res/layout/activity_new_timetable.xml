@@ -10,6 +10,7 @@
         layout="@layout/content_new_timetable"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginBottom="65dp"
         android:paddingTop="@dimen/padding_top_content" />
 
     <include layout="@layout/toolbar" />

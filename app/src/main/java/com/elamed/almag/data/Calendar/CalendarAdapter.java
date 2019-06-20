@@ -19,17 +19,22 @@ import android.widget.TextView;
 import com.elamed.almag.R;
 import com.elamed.almag.data.UpdaterData;
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 import devs.mulham.horizontalcalendar.HorizontalCalendar;
 import devs.mulham.horizontalcalendar.model.CalendarEvent;
@@ -97,7 +102,7 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.ViewHo
             }
             for (int i = 0; i < rates.size(); i++) {
                 double val = rates.get(i);
-                values.add(new Entry(i, (float) val));
+                values.add(new Entry(TimeUnit.MILLISECONDS.toHours(calendar.dates.get(i).getTime()), (float) val));
             }
 
             LineDataSet d = new LineDataSet(values, name);
@@ -112,6 +117,28 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.ViewHo
         LineData data = new LineData(dataSets);
         holder.lineChart.setData(data);
         holder.lineChart.invalidate();
+        XAxis xAxis = holder.lineChart.getXAxis();
+        xAxis.setPosition(XAxis.XAxisPosition.TOP_INSIDE);
+        xAxis.setTextSize(10f);
+        xAxis.setTextColor(Color.WHITE);
+
+        xAxis.setDrawAxisLine(false);
+        xAxis.setDrawGridLines(true);
+        xAxis.setTextColor(Color.rgb(255, 192, 56));
+        xAxis.setCenterAxisLabels(true);
+        xAxis.setGranularity(1f); // one hour
+        xAxis.setValueFormatter(new ValueFormatter() {
+
+            private final SimpleDateFormat mFormat = new SimpleDateFormat("dd MMM", Locale.getDefault());
+
+            @Override
+            public String getFormattedValue(float value) {
+
+                long millis = TimeUnit.HOURS.toMillis((long) value);
+                return mFormat.format(new Date(millis));
+            }
+        });
+
     }
 
     public void setListener(onClickListener listener) {
@@ -160,6 +187,7 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.ViewHo
             endDate.add(java.util.Calendar.MONTH, 1);
 
             lineChart = view.findViewById(R.id.lineChart);
+
             lineChart.setDrawGridBackground(false);
             lineChart.getDescription().setEnabled(false);
             lineChart.setDrawBorders(false);
@@ -170,7 +198,6 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.ViewHo
             lineChart.getXAxis().setDrawAxisLine(false);
             lineChart.getXAxis().setDrawGridLines(false);
 
-
             // enable touch gestures
             lineChart.setTouchEnabled(true);
 
@@ -180,6 +207,7 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.ViewHo
 
             // if disabled, scaling can be done on x- and y-axis separately
             lineChart.setPinchZoom(false);
+
 
             ratingBarBefore = view.findViewById(R.id.ratingBarBefore);
             ratingBarBefore.setNumStars(5);

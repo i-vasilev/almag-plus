@@ -11,6 +11,7 @@
             android:title="@string/magnetotherapy_nav_menu" />
         <item
             android:id="@+id/almag_plus"
+            android:icon="@drawable/icon"
             android:title="@string/almag_plus_nav_menu"/>
     </group>
 </menu>

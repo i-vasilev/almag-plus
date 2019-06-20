@@ -41,23 +41,6 @@ public class MainActivity extends AppCompatActivity
     public static final String ACTION_CLOSE = "com.elamed.almag.CLOSE_LOADING";
 
 
-    private void setOnCheckedOnDetails(boolean isChecked) {
-        final LinearLayout layoutDetails = findViewById(R.id.layoutDetails);
-        final LinearLayout layoutCalendar = findViewById(R.id.layoutCalendar);
-        final CheckBox checkBoxDetails = findViewById(R.id.checkboxDetails);
-        final CheckBox checkBoxCalendar = findViewById(R.id.checkboxCalendar);
-
-        checkBoxDetails.setChecked(isChecked);
-        checkBoxCalendar.setChecked(!isChecked);
-        if (isChecked) {
-            layoutDetails.setBackgroundColor(getResources().getColor(R.color.white));
-            layoutCalendar.setBackgroundColor(getResources().getColor(R.color.uncheckedItem));
-        } else {
-            layoutDetails.setBackgroundColor(getResources().getColor(R.color.uncheckedItem));
-            layoutCalendar.setBackgroundColor(getResources().getColor(R.color.white));
-        }
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,71 +61,23 @@ public class MainActivity extends AppCompatActivity
 
         final LinearLayout layoutDetails = findViewById(R.id.layoutDetails);
         final LinearLayout layoutCalendar = findViewById(R.id.layoutCalendar);
-        final CheckBox checkBoxDetails = findViewById(R.id.checkboxDetails);
-        final CheckBox checkBoxCalendar = findViewById(R.id.checkboxCalendar);
 
         layoutDetails.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                boolean isChecked = !checkBoxDetails.isChecked();
-                if (isChecked) {
-                    setOnCheckedOnDetails(isChecked);
-                }
+                Intent intent = new Intent(getApplicationContext(), DetailsActivity.class);
+                startActivity(intent);
             }
         });
         layoutCalendar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                boolean isChecked = !checkBoxCalendar.isChecked();
-                if (isChecked) {
-                    setOnCheckedOnDetails(!isChecked);
-                }
-            }
-        });
-
-        checkBoxDetails.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                boolean isChecked_ = !checkBoxDetails.isChecked();
-                if (isChecked) {
-                    setOnCheckedOnDetails(isChecked);
-                }
-            }
-        });
-
-        checkBoxCalendar.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                boolean isChecked_ = !checkBoxCalendar.isChecked();
-                if (isChecked) {
-                    setOnCheckedOnDetails(!isChecked);
-                }
+                Intent intent = new Intent(getApplicationContext(), CalendarActivity.class);
+                startActivity(intent);
             }
         });
 
 
-        FloatingActionButton buttonOk = findViewById(R.id.floatingActionButtonOk);
-        buttonOk.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (checkBoxDetails.isChecked()) {
-
-                    Intent intent = new Intent(getApplicationContext(), DetailsActivity.class);
-                    startActivity(intent);
-                } else {
-                    Intent intent = new Intent(getApplicationContext(), CalendarActivity.class);
-                    startActivity(intent);
-                }
-            }
-        });
-
-        FloatingActionButton buttonCancel = findViewById(R.id.floatingActionButtonCancel);
-        buttonCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.app_name, R.string.app_name);

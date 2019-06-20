@@ -27,9 +27,9 @@
     <string name="nav_header_subtitle">Подзаголовок</string>
     <string name="nav_header_desc">Описание приложения</string>
     <string name="mode">Режим</string>
-    <string name="planTreatingView">ПЛАН ЛЕЧЕНИЯ. Вид</string>
-    <string name="planTreatingDetails">ПЛАН ЛЕЧЕНИЯ. Детали</string>
-    <string name="planTreatingCalendar">ПЛАН ЛЕЧЕНИЯ. Календарь</string>
+    <string name="planTreatingView">ПЛАН ЛЕЧЕНИЯ</string>
+    <string name="planTreatingDetails">ПЛАН ЛЕЧЕНИЯ</string>
+    <string name="planTreatingCalendar">ПЛАН ЛЕЧЕНИЯ</string>
     <string name="aboutDetailsMainActivity">Подробная информация о Плане лечения</string>
     <string name="aboutCalendarMainActivity">План лечения на 7 дней</string>
     <string name="cancel">ОТМЕНА</string>

@@ -13,10 +13,13 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TableLayout;
+import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.elamed.almag.R;
 import com.elamed.almag.ToolbarSizer;
+import com.elamed.almag.data.DropdownItemAdapter;
 import com.elamed.almag.data.Timetable.RemindBefore;
 import com.elamed.almag.data.Timetable.Timetable;
 import com.elamed.almag.data.UpdaterData;
@@ -63,14 +66,24 @@ public class NewTimetableActivity extends AppCompatActivity {
         picker.setIs24HourView(true);
         Spinner remindBefore = findViewById(R.id.spinner_remindBefore);
 
+        TextView c = findViewById(R.id.textViewCountOfProcedures);
+        c.measure(0, 0);
+        TableLayout table = findViewById(R.id.table);
+        table.measure(0, 0);
+        int i = table.getMeasuredWidth() - c.getMeasuredWidth() - 20;
+
 
         List<String> listPlans = UpdaterData.getStringPlans();
-        ArrayAdapter<String> adapterPlans = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_dropdown_item_1line, listPlans);
+        //ArrayAdapter<String> adapterPlans = new ArrayAdapter<>(this, R.layout.multiline_spinner_item, listPlans);
+        DropdownItemAdapter adapterPlans = new DropdownItemAdapter(this, R.layout.multiline_spinner_item, listPlans, i);
+        adapterPlans.setDropDownViewResource(R.layout.multiline_spinner_dropdown_item);
         Spinner plans = findViewById(R.id.plan_name);
         plans.setAdapter(adapterPlans);
 
         List<String> listNames = UpdaterData.getStringDiseases();
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_dropdown_item_1line, listNames);
+        //ArrayAdapter<String> adapter = new ArrayAdapter<>(getApplicationContext(), R.layout.multiline_spinner_item, listNames);
+        DropdownItemAdapter adapter = new DropdownItemAdapter(this, R.layout.multiline_spinner_item, listNames, i);
+        adapter.setDropDownViewResource(R.layout.multiline_spinner_dropdown_item);
         Spinner treatments = findViewById(R.id.disease_name);
         treatments.setAdapter(adapter);
 

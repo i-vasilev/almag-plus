@@ -24,48 +24,33 @@
             android:textSize="@dimen/textSizeTopHead"
             android:textStyle="bold" />
 
+
         <LinearLayout
             android:id="@+id/layoutDetails"
             android:layout_width="match_parent"
             android:layout_height="90dp"
-            android:orientation="horizontal"
-            android:weightSum="100">
+            android:layout_margin="5dp"
+            android:orientation="vertical">
 
-            <android.support.v7.widget.AppCompatCheckBox
-                android:id="@+id/checkboxDetails"
-                android:layout_width="match_parent"
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="90"
-                android:buttonTint="@color/mainColor"
-                android:checked="true" />
+                android:layout_weight="1"
+                android:gravity="bottom|start"
+                android:text="@string/tabHomeDetails"
+                android:textColor="@color/textColorForMainActivity"
+                android:textSize="@dimen/textSizeMainMenu" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="10"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="bottom|start"
-                    android:text="@string/tabHomeDetails"
-                    android:textColor="@color/textColorForMainActivity"
-                    android:textSize="@dimen/textSizeMainMenu" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="start|top"
-                    android:layout_weight="1"
-                    android:text="@string/aboutDetailsMainActivity"
-                    android:textColor="@color/mainColor"
-                    android:textSize="@dimen/textSizeDescriptionMainMenu" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start|top"
+                android:layout_weight="1"
+                android:text="@string/aboutDetailsMainActivity"
+                android:textColor="@color/mainColor"
+                android:textSize="@dimen/textSizeDescriptionMainMenu" />
 
 
-            </LinearLayout>
         </LinearLayout>
 
         <View
@@ -77,45 +62,30 @@
             android:id="@+id/layoutCalendar"
             android:layout_width="match_parent"
             android:layout_height="90dp"
-            android:background="@color/uncheckedItem"
-            android:orientation="horizontal"
-            android:weightSum="100">
+            android:layout_margin="5dp"
+            android:orientation="vertical">
 
-            <android.support.v7.widget.AppCompatCheckBox
-                android:id="@+id/checkboxCalendar"
-                android:layout_width="match_parent"
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="90"
-                android:buttonTint="@color/mainColor" />
+                android:layout_weight="1"
+                android:gravity="bottom|start"
+                android:text="@string/tabHomeCalendar"
+                android:textColor="@color/textColorForMainActivity"
+                android:textSize="@dimen/textSizeMainMenu" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="10"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="bottom|start"
-                    android:text="@string/tabHomeCalendar"
-                    android:textColor="@color/textColorForMainActivity"
-                    android:textSize="@dimen/textSizeMainMenu" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="start|top"
-                    android:layout_weight="1"
-                    android:text="@string/aboutCalendarMainActivity"
-                    android:textColor="@color/mainColor"
-                    android:textSize="@dimen/textSizeDescriptionMainMenu" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start|top"
+                android:layout_weight="1"
+                android:text="@string/aboutCalendarMainActivity"
+                android:textColor="@color/mainColor"
+                android:textSize="@dimen/textSizeDescriptionMainMenu" />
 
 
-            </LinearLayout>
         </LinearLayout>
+
 
         <View
             android:layout_width="match_parent"
@@ -124,7 +94,9 @@
 
     </LinearLayout>
 
-    <android.support.design.widget.CoordinatorLayout
+
+
+    <!--<android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|start">
@@ -207,5 +179,5 @@
                     android:textStyle="bold" />
             </FrameLayout>
         </LinearLayout>
-    </android.support.design.widget.CoordinatorLayout>
+    </android.support.design.widget.CoordinatorLayout>-->
 </android.support.design.widget.CoordinatorLayout>
