@@ -23,6 +23,7 @@ import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.formatter.DefaultAxisValueFormatter;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 
@@ -121,6 +122,9 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.ViewHo
         xAxis.setPosition(XAxis.XAxisPosition.TOP_INSIDE);
         xAxis.setTextSize(10f);
         xAxis.setTextColor(Color.WHITE);
+        holder.lineChart.getAxisLeft().setGranularity(1.0f);
+        holder.lineChart.getAxisLeft().setGranularityEnabled(true);
+        holder.lineChart.getAxisLeft().setValueFormatter(new DefaultAxisValueFormatter(0));
 
         xAxis.setDrawAxisLine(false);
         xAxis.setDrawGridLines(true);
@@ -134,7 +138,7 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.ViewHo
             @Override
             public String getFormattedValue(float value) {
 
-                long millis = TimeUnit.HOURS.toMillis((long) value);
+                long millis = TimeUnit.HOURS.toMillis((long) value + 24 * 2);
                 return mFormat.format(new Date(millis));
             }
         });
@@ -192,11 +196,12 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.ViewHo
             lineChart.getDescription().setEnabled(false);
             lineChart.setDrawBorders(false);
 
-            lineChart.getAxisLeft().setEnabled(false);
-            lineChart.getAxisRight().setDrawAxisLine(false);
-            lineChart.getAxisRight().setDrawGridLines(false);
-            lineChart.getXAxis().setDrawAxisLine(false);
-            lineChart.getXAxis().setDrawGridLines(false);
+            lineChart.getAxisLeft().setEnabled(true);
+            lineChart.getAxisLeft().setDrawAxisLine(false);
+            lineChart.getAxisLeft().setDrawGridLines(false);
+            lineChart.getAxisLeft().setAxisMinimum(0);
+            lineChart.getAxisLeft().setAxisMaximum(5);
+            lineChart.getAxisRight().setEnabled(false);
 
             // enable touch gestures
             lineChart.setTouchEnabled(true);
@@ -219,6 +224,7 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.ViewHo
                                 calendarView.getTimetable().getId(), false);
                         UpdaterData.selectAllDataFromDB();
                         CalendarAdapter.this.calendars = UpdaterData.calendars;
+                        calendarView = UpdaterData.calendars.get(position);
                         CalendarAdapter.this.fillChart(ViewHolder.this, position);
                     }
                 }
@@ -234,6 +240,7 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.ViewHo
                                 calendarView.getTimetable().getId(), true);
                         UpdaterData.selectAllDataFromDB();
                         CalendarAdapter.this.calendars = UpdaterData.calendars;
+                        calendarView = UpdaterData.calendars.get(position);
                         CalendarAdapter.this.fillChart(ViewHolder.this, position);
                     }
                 }
@@ -295,9 +302,10 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.ViewHo
                         c.setTimeInMillis(calendarView.dates.get(i).getTime());
 
                         if (date.get(java.util.Calendar.DAY_OF_YEAR) == c.get(java.util.Calendar.DAY_OF_YEAR)) {
-                            selectedPosition = i;
+                            selectedPosition = -1;
                             ratingBarAfter.setRating(calendarView.ratesAfter.get(i));
                             ratingBarBefore.setRating(calendarView.ratesBefore.get(i));
+                            selectedPosition = i;
                             isSelectedFromList = true;
                             break;
                         }

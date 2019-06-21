@@ -32,7 +32,7 @@ public class AlarmReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
         PowerManager.WakeLock wl = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "almag:alarmReceiver");
-        Intent alarmActivity = new Intent(context, AlarmActivity.class);
+        Intent alarmActivity = new Intent(context.getApplicationContext(), AlarmActivity.class);
         wl.acquire();
         Procedure procedureExtras;
         ParcelablePlanDetalization procedureExtras2;
@@ -43,8 +43,9 @@ public class AlarmReceiver extends BroadcastReceiver {
 
 
         wl.release();
-        alarmActivity.putExtra(PROCEDURE_EXTRA_NAME, procedureExtras);
+        alarmActivity.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         alarmActivity.putExtra(PLAN_DETALIZATION_EXTRA_NAME, procedureExtras2);
+        alarmActivity.putExtra(PROCEDURE_EXTRA_NAME, procedureExtras);
         context.startActivity(alarmActivity);
     }
 
@@ -62,7 +63,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         intent.putExtra("bundle", bundle);
 
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, procedure.getId(), intent, 0);
-        am.setRepeating(AlarmManager.RTC_WAKEUP, procedure.getTime(), 0, pendingIntent);
+        am.set(AlarmManager.RTC_WAKEUP, procedure.getTime(), pendingIntent);
     }
 
     public void cancelAlarm(Context context, Procedure procedure) {

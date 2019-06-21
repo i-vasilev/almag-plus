@@ -16,6 +16,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -44,6 +46,10 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
 
         DBHelper.setContext(getApplicationContext());
 
+        Window window = this.getWindow();
+        window.addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
+        window.addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
+        window.addFlags(WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
         procedure = getIntent().getParcelableExtra(AlarmReceiver.PROCEDURE_EXTRA_NAME);
         planDetalization = getIntent().getParcelableExtra(AlarmReceiver.PLAN_DETALIZATION_EXTRA_NAME);
 

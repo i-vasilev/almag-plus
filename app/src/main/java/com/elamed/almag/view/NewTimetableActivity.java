@@ -98,6 +98,8 @@ public class NewTimetableActivity extends AppCompatActivity {
             plans.setSelection(listPlans.indexOf(UpdaterData.getDescriptionPlanById(timetable.getIdPlan())));
             interval.setText(String.valueOf(timetable.getInterval()));
             countOfProcedures.setText(String.valueOf(timetable.getDurationOfTreatment()));
+            remindBefore.setSelection(timetable.getRemindBefore().getValue());
+
             Calendar calendar = Calendar.getInstance();
             calendar.setTimeInMillis(timetable.getTime());
             calendar = timetable.getRemindBefore().addTime(calendar);

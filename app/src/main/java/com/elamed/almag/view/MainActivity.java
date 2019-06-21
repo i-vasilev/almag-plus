@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -21,8 +20,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 
 import com.elamed.almag.R;
@@ -61,6 +58,8 @@ public class MainActivity extends AppCompatActivity
 
         final LinearLayout layoutDetails = findViewById(R.id.layoutDetails);
         final LinearLayout layoutCalendar = findViewById(R.id.layoutCalendar);
+        final LinearLayout layoutDiseases = findViewById(R.id.layoutDiseases);
+        final LinearLayout layoutAlmag = findViewById(R.id.layoutAlmag);
 
         layoutDetails.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,6 +73,18 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), CalendarActivity.class);
                 startActivity(intent);
+            }
+        });
+        layoutDiseases.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openActivityDiseases();
+            }
+        });
+        layoutAlmag.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openActivityWithPrefix(DBHelper.PREF_ALMAG);
             }
         });
 
@@ -105,18 +116,11 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.action_settings) {
             return true;
         } else if (id == R.id.magnetotherapy) {
-            Intent intent = new Intent(this, DescriptionActivity.class);
-            String article = UpdaterData.getArticleByPrefix(DBHelper.PREF_MAGNETOTHERAPY);
-            intent.putExtra("article", article);
-            startActivity(intent);
+            openActivityWithPrefix(DBHelper.PREF_MAGNETOTHERAPY);
         } else if (id == R.id.almag_plus) {
-            Intent intent = new Intent(this, DescriptionActivity.class);
-            String article = UpdaterData.getArticleByPrefix(DBHelper.PREF_ALMAG);
-            intent.putExtra("article", article);
-            startActivity(intent);
+            openActivityWithPrefix(DBHelper.PREF_ALMAG);
         } else if (id == R.id.diseases) {
-            Intent intent = new Intent(this, ListDiseasesActivity.class);
-            startActivity(intent);
+            openActivityDiseases();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -125,6 +129,17 @@ public class MainActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
+    private void openActivityWithPrefix(String pref) {
+        Intent intent = new Intent(this, DescriptionActivity.class);
+        String article = UpdaterData.getArticleByPrefix(pref);
+        intent.putExtra("article", article);
+        startActivity(intent);
+    }
+
+    private void openActivityDiseases(){
+        Intent intent = new Intent(this, ListDiseasesActivity.class);
+        startActivity(intent);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

@@ -4,6 +4,8 @@
     <string name="action_settings">Settings</string>
     <string name="tabHomeDetails">Details</string>
     <string name="tabHomeCalendar">Calendar</string>
+    <string name="tabHomeDiseases">Diseases</string>
+    <string name="tabHomeAlmagPlus">Almag+</string>
     <string name="durationOfTreatment">"%d / %d days"</string>
     <string name="durationOfProcedure">Duration of procedure %d minutes</string>
     <string name="daily">Daily</string>
@@ -24,7 +26,7 @@
     <string name="magnetotherapy_nav_menu">Magnetotherapy</string>
     <string name="almag_plus_nav_menu">Almag+</string>
     <string name="nav_header_title">Almag</string>
-    <string name="nav_header_subtitle">Subtitle</string>
+    <string name="nav_header_subtitle">Planner of magnetotherapy procedures carried out with the help of Almag apparatus</string>
     <string name="nav_header_desc">App description</string>
     <string name="mode">Mode</string>
     <string name="planTreatingView">Plan of treating</string>
@@ -32,9 +34,12 @@
     <string name="planTreatingCalendar">Plan of treating</string>
     <string name="aboutDetailsMainActivity">Detailed information about the treatment Plan</string>
     <string name="aboutCalendarMainActivity">Treating plan for 7 days</string>
+    <string name="aboutDiseasesMainActivity">Detailed information about diseases</string>
+    <string name="aboutAlmagPlusMainActivity">Detailed information about Almag+</string>
     <string name="cancel">Cancel</string>
     <string name="remindBefore">Remind before</string>
     <string name="AlmagPlus">ALMAG+</string>
+    <string name="articles">Articles</string>
 
     <string-array name="remindBefore">
         <item>не напоминать</item>

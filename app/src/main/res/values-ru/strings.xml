@@ -4,6 +4,8 @@
     <string name="action_settings">Настройки</string>
     <string name="tabHomeDetails">Детали</string>
     <string name="tabHomeCalendar">Календарь</string>
+    <string name="tabHomeDiseases">Заболевания</string>
+    <string name="tabHomeAlmagPlus">Алмаг+</string>
     <string name="durationOfTreatment">"%d / %d дней"</string>
     <string name="durationOfProcedure">Длительность процедуры %d минут</string>
     <string name="daily">Ежедневно</string>
@@ -24,7 +26,7 @@
     <string name="magnetotherapy_nav_menu">Магнитотерапия</string>
     <string name="almag_plus_nav_menu">Алмаг+</string>
     <string name="nav_header_title">Алмаг</string>
-    <string name="nav_header_subtitle">Подзаголовок</string>
+    <string name="nav_header_subtitle">Планировщик процедур магнитотерапии проводимой с помощью аппарата Алмаг</string>
     <string name="nav_header_desc">Описание приложения</string>
     <string name="mode">Режим</string>
     <string name="planTreatingView">ПЛАН ЛЕЧЕНИЯ</string>
@@ -32,8 +34,11 @@
     <string name="planTreatingCalendar">ПЛАН ЛЕЧЕНИЯ</string>
     <string name="aboutDetailsMainActivity">Подробная информация о Плане лечения</string>
     <string name="aboutCalendarMainActivity">План лечения на 7 дней</string>
+    <string name="aboutDiseasesMainActivity">Подробная информация о заболеваниях и способах их лечения</string>
+    <string name="aboutAlmagPlusMainActivity">Подробная информация об Алмаге+</string>
     <string name="cancel">ОТМЕНА</string>
     <string name="remindBefore">Напомнить за</string>
     <string name="AlmagPlus">АЛМАГ+</string>
+    <string name="articles">Статьи</string>
 
 </resources>
