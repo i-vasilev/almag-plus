@@ -23,8 +23,6 @@ public class DescriptionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_description_view);
 
-        ;
-
         WebView webView = findViewById(R.id.webViewDescription);
         Disease d = (Disease) getIntent().getSerializableExtra("disease");
         String article = (String) getIntent().getSerializableExtra("article");
@@ -43,18 +41,23 @@ public class DescriptionActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         AppBarLayout appBarLayout = findViewById(R.id.appbar);
         ToolbarSizer.setAppBarHeight(appBarLayout, getResources());
 
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setHomeButtonEnabled(true);
-        actionBar.setDisplayHomeAsUpEnabled(true);
         LinearLayout layout = findViewById(R.id.layout_toolbar);
         ViewGroup.LayoutParams params = layout.getLayoutParams();
         params.width = layout.getResources().getDimensionPixelSize(R.dimen.widthToolbat);
         params.height = layout.getResources().getDimensionPixelSize(R.dimen.heightToolbar);
         layout.setLayoutParams(params);
+
+
+        findViewById(R.id.back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
     }
 
 

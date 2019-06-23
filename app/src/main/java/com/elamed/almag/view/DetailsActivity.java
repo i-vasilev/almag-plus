@@ -1,6 +1,7 @@
 package com.elamed.almag.view;
 
 import android.content.Intent;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -8,6 +9,8 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.ContextMenu;
+import android.view.Display;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +28,7 @@ import com.elamed.almag.data.UpdaterData;
 public class DetailsActivity extends AppCompatActivity {
     private ListView timetableList;
     private TimetableAdapter timetableAdapter;
+    MenuItem menuDelete;
 
     public static int position = -1;
 
@@ -43,24 +47,21 @@ public class DetailsActivity extends AppCompatActivity {
         UpdaterData.selectAllDataFromDB();
         timetableList.setAdapter(timetableAdapter);
 
-
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         AppBarLayout appBarLayout = findViewById(R.id.appbar);
         ToolbarSizer.setAppBarHeight(appBarLayout, getResources());
 
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setHomeButtonEnabled(true);
-        actionBar.setDisplayHomeAsUpEnabled(true);
-
         LinearLayout layout = findViewById(R.id.layout_toolbar);
         ViewGroup.LayoutParams params = layout.getLayoutParams();
-        params.width = layout.getResources().getDimensionPixelSize(R.dimen.widthToolbat);
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        int width = size.x;
+        params.width = width;
         params.height = layout.getResources().getDimensionPixelSize(R.dimen.heightToolbar);
         layout.setLayoutParams(params);
-//        findViewById(R.id.lineEditing).setVisibility(View.INVISIBLE);
-//        findViewById(R.id.list_item).setEnabled(true);
 
         FloatingActionButton addNewTimetable = findViewById(R.id.addNewTimetable);
         View.OnClickListener addNewTimetableListener = new View.OnClickListener() {
@@ -71,18 +72,7 @@ public class DetailsActivity extends AppCompatActivity {
             }
         };
 
-        Button remove = findViewById(R.id.remove);
-        remove.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (position != -1)
-                    UpdaterData.deleteTimetable(timetableAdapter.getItem(position), getApplicationContext());
-//                findViewById(R.id.lineEditing).setVisibility(View.INVISIBLE);
-//                findViewById(R.id.list_item).setEnabled(true);
-            }
-        });
-
-        Button edit = findViewById(R.id.edit);
+        FloatingActionButton edit = findViewById(R.id.edit);
         edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -104,7 +94,15 @@ public class DetailsActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 DetailsActivity.this.position = position;
+                timetableAdapter.isCheckedByPosition = true;
                 timetableAdapter.setChecked(position);
+                timetableAdapter.isCheckedByPosition = false;
+            }
+        });
+        findViewById(R.id.back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
     }
@@ -121,6 +119,13 @@ public class DetailsActivity extends AppCompatActivity {
         //inflater.inflate(R.menu.context_menu_details, menu);
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_details, menu);
+        menuDelete = menu.findItem(R.id.action_delete);
+        return true;
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -128,6 +133,11 @@ public class DetailsActivity extends AppCompatActivity {
             case android.R.id.home:
                 this.finish();
                 return true;
+            default:
+                if (item.equals(menuDelete)) {
+                    if (position != -1)
+                        UpdaterData.deleteTimetable(timetableAdapter.getItem(position), getApplicationContext());
+                }
         }
         return super.onOptionsItemSelected(item);
     }

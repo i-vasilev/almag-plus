@@ -5,6 +5,8 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Point;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
@@ -16,21 +18,26 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import android.os.Bundle;
+import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 
 import com.elamed.almag.R;
 import com.elamed.almag.ToolbarSizer;
 import com.elamed.almag.data.DBHelper;
+import com.elamed.almag.data.Preferences;
 import com.elamed.almag.data.Request;
 import com.elamed.almag.data.RequestTypes;
 import com.elamed.almag.data.Responce;
 import com.elamed.almag.data.ResponceType;
 import com.elamed.almag.data.UpdaterData;
 import com.elamed.almag.net.Client;
+
+import smartdevelop.ir.eram.showcaseviewlib.GuideView;
 
 
 public class MainActivity extends AppCompatActivity
@@ -51,15 +58,19 @@ public class MainActivity extends AppCompatActivity
 
         LinearLayout layout = findViewById(R.id.layout_toolbar);
         ViewGroup.LayoutParams params = layout.getLayoutParams();
-        params.width = layout.getResources().getDimensionPixelSize(R.dimen.widthToolbat);
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        int width = size.x;
+        params.width = width;
         params.height = layout.getResources().getDimensionPixelSize(R.dimen.heightToolbar);
         layout.setLayoutParams(params);
-
 
         final LinearLayout layoutDetails = findViewById(R.id.layoutDetails);
         final LinearLayout layoutCalendar = findViewById(R.id.layoutCalendar);
         final LinearLayout layoutDiseases = findViewById(R.id.layoutDiseases);
         final LinearLayout layoutAlmag = findViewById(R.id.layoutAlmag);
+        final LinearLayout layoutPhone = findViewById(R.id.layoutPhone);
 
         layoutDetails.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,7 +89,7 @@ public class MainActivity extends AppCompatActivity
         layoutDiseases.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openActivityDiseases();
+                openActivityDiseases("");
             }
         });
         layoutAlmag.setOnClickListener(new View.OnClickListener() {
@@ -87,7 +98,21 @@ public class MainActivity extends AppCompatActivity
                 openActivityWithPrefix(DBHelper.PREF_ALMAG);
             }
         });
-
+        layoutPhone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:+78003500413"));
+                if (intent.resolveActivity(getPackageManager()) != null) {
+                    startActivity(intent);
+                }
+            }
+        });
+        findViewById(R.id.help).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startLearning();
+            }
+        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -97,12 +122,49 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-
         AsyncRequest a = new AsyncRequest(this);
         Request request = new Request();
         request.setTypeRequest(RequestTypes.Checking);
         request.setDiseases(UpdaterData.getDiseases());
         a.execute(request);
+
+        Preferences.setmSettings(getSharedPreferences(Preferences.APP_PREFERENCES, Context.MODE_PRIVATE));
+        if (Preferences.isFirst()) {
+            startLearning();
+        }
+    }
+
+    private void startLearning() {
+        ShowIntro("Детали", "Чтобы создать новый будильник нажмите на сюда", R.id.layoutDetails, 1);
+    }
+
+    private void ShowIntro(String title, String text, int viewId, final int type) {
+
+        new GuideView.Builder(this)
+                .setTitle(title)
+                .setContentText(text)
+                .setTargetView((LinearLayout) findViewById(viewId))
+                .setContentTextSize(12)//optional
+                .setTitleTextSize(14)//optional
+                .setDismissType(GuideView.DismissType.outside)
+                .setGuideListener(new GuideView.GuideListener() {
+                    @Override
+                    public void onDismiss(View view) {
+                        if (type == 1) {
+                            ShowIntro("Календарь", "Для просмотра хода лечения нажмите сюда", R.id.layoutCalendar, 2);
+                        } else if (type == 2) {
+                            ShowIntro("Заболевания", "Чтобы почитать о болезнях, которые лечит Алмаг, нажмите сюда", R.id.layoutDiseases, 3);
+                        } else if (type == 3) {
+                            ShowIntro("Алмаг+", "Чтобы почитать про Алмаг, нажмите сюда", R.id.layoutAlmag, 4);
+                            ScrollView sv = (ScrollView) findViewById(R.id.scrollView);
+                            sv.scrollTo(0, sv.getBottom());
+                        } else if (type == 4) {
+                            ShowIntro("Звонок в техподдержку", "Чтобы позвонить в техподдержку по поводу работы аппарата Алмаг, нажмите сюда", R.id.layoutPhone, 5);
+                        }
+                    }
+                })
+                .build()
+                .show();
     }
 
     @Override
@@ -111,16 +173,12 @@ public class MainActivity extends AppCompatActivity
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        } else if (id == R.id.magnetotherapy) {
-            openActivityWithPrefix(DBHelper.PREF_MAGNETOTHERAPY);
+        if (id == R.id.magnetotherapy) {
+            openActivityDiseases(DBHelper.PREF_MAGNETOTHERAPY);
         } else if (id == R.id.almag_plus) {
             openActivityWithPrefix(DBHelper.PREF_ALMAG);
         } else if (id == R.id.diseases) {
-            openActivityDiseases();
+            openActivityDiseases("");
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -136,8 +194,9 @@ public class MainActivity extends AppCompatActivity
         startActivity(intent);
     }
 
-    private void openActivityDiseases(){
+    private void openActivityDiseases(String pref) {
         Intent intent = new Intent(this, ListDiseasesActivity.class);
+        intent.putExtra("pref", pref);
         startActivity(intent);
     }
 
@@ -150,23 +209,11 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify loadingActivity parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
         return super.onOptionsItemSelected(item);
     }
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-
-        menu.findItem(R.id.action_settings).setVisible(false);
 
         return super.onPrepareOptionsMenu(menu);
     }

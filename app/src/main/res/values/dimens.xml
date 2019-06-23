@@ -8,7 +8,7 @@
     <dimen name="height_of_row">50dp</dimen>
     <dimen name="padding_between_elements_in_row">10dp</dimen>
     <dimen name="textSizeTopHead">25sp</dimen>
-    <dimen name="textSizeMainMenu">20sp</dimen>
+    <dimen name="textSizeMainMenu">25sp</dimen>
     <dimen name="textSizeDescriptionMainMenu">18sp</dimen>
     <dimen name="textSizeCancelMainMenu">15sp</dimen>
     <dimen name="textSizeOkMainMenu">20sp</dimen>
@@ -20,4 +20,5 @@
     <dimen name="widthToolbat">370dp</dimen>
     <dimen name="heightToolbar">20dp</dimen>
     <dimen name="margin_top_image_toolbar">-15dp</dimen>
+    <dimen name="margin_down_buttons">30dp</dimen>
 </resources>

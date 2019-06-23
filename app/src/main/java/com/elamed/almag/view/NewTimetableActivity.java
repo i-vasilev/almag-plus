@@ -2,14 +2,13 @@ package com.elamed.almag.view;
 
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
@@ -35,7 +34,7 @@ public class NewTimetableActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_activity_main, menu);
+        getMenuInflater().inflate(R.menu.menu_main, menu);
         okMenuItem = menu.findItem(R.id.action_ok);
         return true;
     }
@@ -51,10 +50,6 @@ public class NewTimetableActivity extends AppCompatActivity {
         AppBarLayout appBarLayout = findViewById(R.id.appbar);
         ToolbarSizer.setAppBarHeight(appBarLayout, getResources());
         appBarLayout.setClickable(true);
-
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setHomeButtonEnabled(true);
-        actionBar.setDisplayHomeAsUpEnabled(true);
 
         LinearLayout layout = findViewById(R.id.layout_toolbar);
         ViewGroup.LayoutParams params = layout.getLayoutParams();
@@ -107,6 +102,45 @@ public class NewTimetableActivity extends AppCompatActivity {
             timePicker.setHour(calendar.get(Calendar.HOUR_OF_DAY));
             timePicker.setMinute(calendar.get(Calendar.MINUTE));
         }
+
+        findViewById(R.id.back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        findViewById(R.id.ok).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Spinner plans = findViewById(R.id.plan_name);
+                Spinner treatment = findViewById(R.id.disease_name);
+                EditText interval = findViewById(R.id.editTextInterval);
+                TimePicker timePicker = findViewById(R.id.timeNewTimetable);
+                EditText countOfProcedures = findViewById(R.id.editTextCountOfProcedures);
+                Spinner remindBeforeSpinner = findViewById(R.id.spinner_remindBefore);
+
+                if (!isChanging) {
+                    timetable = new Timetable();
+                }
+                timetable.setIdPlan(UpdaterData.getIdByDescriptionPlan(plans.getSelectedItem().toString()));
+                timetable.setName(String.valueOf(treatment.getSelectedItem()));
+                Calendar calendar = Calendar.getInstance();
+                RemindBefore remindBefore = RemindBefore.valueOf(remindBeforeSpinner.getSelectedItemPosition());
+                timetable.setRemindBefore(remindBefore);
+                calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH), timePicker.getHour(), timePicker.getMinute(), 0);
+                timetable.setTime(remindBefore.takeTime(calendar).getTimeInMillis());
+                timetable.setDurationOfTreatment(Integer.parseInt(countOfProcedures.getText().toString()));
+                timetable.setInterval(Integer.parseInt(interval.getText().toString()));
+                ;
+                if (isChanging) {
+                    UpdaterData.updateTimetable(timetable, getApplicationContext());
+                } else {
+                    UpdaterData.insertNewTimetable(timetable, getApplicationContext());
+                }
+                UpdaterData.updateAdapters();
+                finish();
+            }
+        });
     }
 
 
@@ -116,36 +150,6 @@ public class NewTimetableActivity extends AppCompatActivity {
             case android.R.id.home:
                 this.finish();
                 return true;
-            default:
-                if (item.equals(okMenuItem)) {
-                    Spinner plans = findViewById(R.id.plan_name);
-                    Spinner treatment = findViewById(R.id.disease_name);
-                    EditText interval = findViewById(R.id.editTextInterval);
-                    TimePicker timePicker = findViewById(R.id.timeNewTimetable);
-                    EditText countOfProcedures = findViewById(R.id.editTextCountOfProcedures);
-                    Spinner remindBeforeSpinner = findViewById(R.id.spinner_remindBefore);
-
-                    if (!isChanging) {
-                        timetable = new Timetable();
-                    }
-                    timetable.setIdPlan(UpdaterData.getIdByDescriptionPlan(plans.getSelectedItem().toString()));
-                    timetable.setName(String.valueOf(treatment.getSelectedItem()));
-                    Calendar calendar = Calendar.getInstance();
-                    RemindBefore remindBefore = RemindBefore.valueOf(remindBeforeSpinner.getSelectedItemPosition());
-                    timetable.setRemindBefore(remindBefore);
-                    calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH), timePicker.getHour(), timePicker.getMinute(), 0);
-                    timetable.setTime(remindBefore.takeTime(calendar).getTimeInMillis());
-                    timetable.setDurationOfTreatment(Integer.parseInt(countOfProcedures.getText().toString()));
-                    timetable.setInterval(Integer.parseInt(interval.getText().toString()));
-                    ;
-                    if (isChanging) {
-                        UpdaterData.updateTimetable(timetable, getApplicationContext());
-                    } else {
-                        UpdaterData.insertNewTimetable(timetable, getApplicationContext());
-                    }
-                    UpdaterData.updateAdapters();
-                    finish();
-                }
         }
         return super.onOptionsItemSelected(item);
     }

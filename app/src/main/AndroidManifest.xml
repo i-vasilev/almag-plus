@@ -6,6 +6,13 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <!--  общая телефония -->
+    <uses-feature android:name="android.hardware.telephony" />
+    <!--  CDMA-телефония -->
+    <uses-feature android:name="android.hardware.telephony.cdma" />
+    <!--  GSM-телефония -->
+    <uses-feature android:name="android.hardware.telephony.gsm" />
 
     <application xmlns:tools="http://schemas.android.com/tools"
         android:allowBackup="true"
@@ -43,6 +50,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".view.CalendarActivity"
+            android:hardwareAccelerated="false"
             android:label="@string/title_activity_new_timetable"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -68,6 +76,8 @@
             android:name=".view.LoadingActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Transparent" />
+
+
     </application>
 
 </manifest>

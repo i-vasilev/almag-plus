@@ -540,6 +540,38 @@ public class UpdaterData {
         return result;
     }
 
+    public static List<String> getArticlesByPrefix(String pref) {
+        List<String> result = new ArrayList<>();
+        DBHelper dbHelper = DBHelper.getInstance();
+        SQLiteDatabase database = dbHelper.getReadableDatabase();
+
+        Cursor articleCursor = database.query(DBHelper.TABLE_ADDITIONAL_ARTICLES, null,
+                DBHelper.KEY_PREF_TYPE_ADDITIONAL_ARTICLE + " = ?", new String[]{pref},
+                null, null, null);
+        if (articleCursor.moveToFirst()) {
+            int nameColumn = articleCursor.getColumnIndex(DBHelper.KEY_NAME_ADDITIONAL_ARTICLES);
+            do {
+                result.add(articleCursor.getString(nameColumn));
+            } while (articleCursor.moveToNext());
+        }
+        return result;
+    }
+
+    public static Disease getArticleByName(String name) {
+        DBHelper dbHelper = DBHelper.getInstance();
+        SQLiteDatabase database = dbHelper.getReadableDatabase();
+        String[] selectionArgs = {name};
+        Disease result = new Disease();
+        Cursor cursor = database.query(DBHelper.TABLE_ADDITIONAL_ARTICLES, null, DBHelper.KEY_NAME_ADDITIONAL_ARTICLES + "= ?",
+                selectionArgs, null, null, null, null);
+        if (cursor.moveToNext()) {
+            int additionalArticleColumn = cursor.getColumnIndex(DBHelper.KEY_ARTICLE_ADDITIONAL_ARTICLES);
+            result.setDescription(cursor.getString(additionalArticleColumn));
+            result.setName(name);
+        }
+        return result;
+    }
+
     public static int getIdByDescriptionPlan(String description) {
         int id = 0;
         DBHelper dbHelper = DBHelper.getInstance();

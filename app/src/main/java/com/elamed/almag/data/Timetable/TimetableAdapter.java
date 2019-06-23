@@ -22,7 +22,7 @@ public class TimetableAdapter extends ArrayAdapter<Timetable> {
     private LayoutInflater inflater;
     private int layout;
     private List<Timetable> timetables;
-    private boolean isCheckedByPosition = false;
+    public boolean isCheckedByPosition = false;
     private List<CheckBox> checkBoxes = new ArrayList<>();
 
     public TimetableAdapter(Context context, int layout, List<Timetable> timetables) {
@@ -40,7 +40,6 @@ public class TimetableAdapter extends ArrayAdapter<Timetable> {
                 checkBoxes.get(j).setChecked(false);
             }
         }
-        isCheckedByPosition = true;
     }
 
     public void setChecked(CompoundButton checkBox) {
@@ -53,7 +52,7 @@ public class TimetableAdapter extends ArrayAdapter<Timetable> {
                     checkBoxes.get(j).setChecked(false);
                 }
             }
-        } else isCheckedByPosition = !isCheckedByPosition;
+        }
     }
 
     public View getView(int position, final View convertView, final ViewGroup parent) {
@@ -71,11 +70,7 @@ public class TimetableAdapter extends ArrayAdapter<Timetable> {
         include.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    setChecked(buttonView);
-                }
-                if (!isChecked) isChecked = true;
-
+                setChecked(buttonView);
             }
         });
 

@@ -45,9 +45,6 @@ public class CalendarActivity extends AppCompatActivity {
         AppBarLayout appBarLayout = findViewById(R.id.appbar);
         ToolbarSizer.setAppBarHeight(appBarLayout, getResources());
 
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setHomeButtonEnabled(true);
-        actionBar.setDisplayHomeAsUpEnabled(true);
 
         LinearLayout layout = findViewById(R.id.layout_toolbar);
         ViewGroup.LayoutParams params = layout.getLayoutParams();
@@ -64,6 +61,12 @@ public class CalendarActivity extends AppCompatActivity {
         UpdaterData.setCalendarAdapter(calendarAdapter);
         listView.setAdapter(calendarAdapter);
         calendarAdapter.notifyDataSetChanged();
+        findViewById(R.id.back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         calendarAdapter.setListener(new CalendarAdapter.onClickListener() {
             @Override

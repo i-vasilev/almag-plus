@@ -12,7 +12,8 @@
         android:layout_width="wrap_content"
         android:layout_height="100dp"
         android:layout_gravity="center"
-        android:layout_marginBottom="250dp"
+        android:layout_marginBottom="300dp"
+
         android:src="@drawable/alarm" />
 
     <LinearLayout

@@ -25,32 +25,95 @@
             android:layout_height="match_parent"
             android:layout_marginTop="@dimen/padding_top_content" />
 
-        <LinearLayout
-            android:id="@+id/lineEditing"
-            android:layout_width="match_parent"
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/fabWrapperBack"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom|right"
-            android:layout_marginBottom="10dp"
-            android:gravity="center"
+            android:layout_gravity="start|bottom"
+            android:layout_marginLeft="30dp"
+            android:layout_marginBottom="@dimen/margin_down_buttons"
+            android:background="@drawable/round_button"
+            android:padding="3dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:showIn="@layout/avtivity_calendar">
 
-            android:orientation="horizontal">
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|start">
 
-            <android.support.v7.widget.AppCompatButton
-                android:id="@+id/remove"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:layout_marginRight="260dp"
-                android:background="@drawable/remove"
-                android:gravity="center" />
+                <android.support.design.widget.FloatingActionButton
+                    android:id="@+id/back"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/white"
+                    android:backgroundTint="@android:color/white"
+                    android:clickable="true"
+                    android:scaleType="center"
+                    app:fabSize="normal" />
 
-            <android.support.v7.widget.AppCompatButton
-                android:id="@+id/edit"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:background="@drawable/edit_d"
-                android:gravity="center" />
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:elevation="16dp"
+                    android:text="&#60;"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/mainColor"
+                    android:textSize="50sp"
+                    android:textStyle="bold" />
+            </FrameLayout>
         </LinearLayout>
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/fabWrapperEdit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|bottom"
+            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="@dimen/margin_down_buttons"
+            android:background="@drawable/round_button"
+            android:padding="3dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:showIn="@layout/avtivity_calendar">
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|start">
+
+                <android.support.design.widget.FloatingActionButton
+                    android:id="@+id/edit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/white"
+                    android:backgroundTint="@android:color/white"
+                    android:clickable="true"
+                    android:scaleType="center"
+                    app:fabSize="normal" />
+
+
+                <TextView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:elevation="16dp"
+                    android:text=" "
+                    android:background="@drawable/edit"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/mainColor"
+                    android:textSize="50sp"
+                    android:textStyle="bold" />
+            </FrameLayout>
+        </LinearLayout>
+
 
     </android.support.design.widget.CoordinatorLayout>
 

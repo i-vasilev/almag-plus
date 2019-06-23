@@ -2,17 +2,14 @@ package com.elamed.almag.data.Calendar;
 
 import android.content.Context;
 import android.content.res.AssetManager;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -27,7 +24,6 @@ import com.github.mikephil.charting.formatter.DefaultAxisValueFormatter;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
@@ -41,6 +37,8 @@ import devs.mulham.horizontalcalendar.HorizontalCalendar;
 import devs.mulham.horizontalcalendar.model.CalendarEvent;
 import devs.mulham.horizontalcalendar.utils.CalendarEventsPredicate;
 import devs.mulham.horizontalcalendar.utils.HorizontalCalendarListener;
+import pl.droidsonroids.gif.GifDrawable;
+import pl.droidsonroids.gif.GifImageView;
 
 public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.ViewHolder> {
     private LayoutInflater inflater;
@@ -70,7 +68,13 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.ViewHo
     public void onBindViewHolder(CalendarAdapter.ViewHolder holder, int position) {
         final Calendar calendar = calendars.get(position);
         holder.nameView.setText(calendar.getTimetable().getName());
-        holder.imageView.setImageBitmap(ImageViaAssets(calendar.getTimetable().getImage()));
+        try {
+            GifDrawable gifFromAssets = new GifDrawable(assetmanager, calendar.getTimetable().getImage());
+            gifFromAssets.setLoopCount(0);
+            holder.imageView.setBackground(gifFromAssets);
+        }catch (IOException e){
+
+        }
         holder.calendarView = calendar;
         holder.position = position;
         fillChart(holder, position);
@@ -171,7 +175,7 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.ViewHo
     public class ViewHolder extends RecyclerView.ViewHolder {
         final TextView nameView;
         final HorizontalCalendar horizontalCalendar;
-        final ImageView imageView;
+        final GifImageView imageView;
         RatingBar ratingBarBefore;
         RatingBar ratingBarAfter;
         LineChart lineChart;

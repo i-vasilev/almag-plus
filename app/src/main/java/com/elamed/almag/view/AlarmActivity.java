@@ -85,8 +85,6 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
         ToolbarSizer.setAppBarHeight(appBarLayout, getResources());
 
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setHomeButtonEnabled(true);
-        actionBar.setDisplayHomeAsUpEnabled(true);
 
         LinearLayout layout = findViewById(R.id.layout_toolbar);
         ViewGroup.LayoutParams params = layout.getLayoutParams();
