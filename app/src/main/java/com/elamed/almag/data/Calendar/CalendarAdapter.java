@@ -16,11 +16,11 @@ import android.widget.TextView;
 import com.elamed.almag.R;
 import com.elamed.almag.data.UpdaterData;
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
-import com.github.mikephil.charting.formatter.DefaultAxisValueFormatter;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 
@@ -107,8 +107,11 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.ViewHo
             }
             for (int i = 0; i < rates.size(); i++) {
                 double val = rates.get(i);
-                values.add(new Entry(TimeUnit.MILLISECONDS.toHours(calendar.dates.get(i).getTime()), (float) val));
+                Entry entry = new Entry(TimeUnit.MILLISECONDS.toHours(calendar.dates.get(i).getTime()), (float) val);
+                values.add(entry);
+
             }
+
 
             LineDataSet d = new LineDataSet(values, name);
             d.setLineWidth(2.5f);
@@ -128,7 +131,8 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.ViewHo
         xAxis.setTextColor(Color.WHITE);
         holder.lineChart.getAxisLeft().setGranularity(1.0f);
         holder.lineChart.getAxisLeft().setGranularityEnabled(true);
-        holder.lineChart.getAxisLeft().setValueFormatter(new DefaultAxisValueFormatter(0));
+        holder.lineChart.getAxisLeft().setValueFormatter(new IntegerValueFormatter());
+        data.setValueFormatter(new IntegerValueFormatter());
 
         xAxis.setDrawAxisLine(false);
         xAxis.setDrawGridLines(true);
@@ -171,6 +175,18 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.ViewHo
         return calendars.size();
     }
 
+    class IntegerValueFormatter extends ValueFormatter{
+        @Override
+        public String getPointLabel(Entry entry) {
+            return String.valueOf(Math.round(entry.getY()));
+        }
+
+        @Override
+        public String getAxisLabel(float value, AxisBase axis) {
+            return  String.valueOf(Math.round(value));
+        }
+    }
+
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         final TextView nameView;
@@ -206,6 +222,7 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.ViewHo
             lineChart.getAxisLeft().setAxisMinimum(0);
             lineChart.getAxisLeft().setAxisMaximum(5);
             lineChart.getAxisRight().setEnabled(false);
+
 
             // enable touch gestures
             lineChart.setTouchEnabled(true);

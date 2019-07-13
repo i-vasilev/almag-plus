@@ -85,7 +85,7 @@ public class Timetable implements Parcelable {
     }
 
     public String getImage() {
-        return "images/" +image;
+        return "images/" + image;
     }
 
     public String getTimeString() {

@@ -1,15 +1,12 @@
 package com.elamed.almag.net;
 
-import com.elamed.almag.data.Disease;
 import com.elamed.almag.data.Request;
-import com.elamed.almag.data.RequestTypes;
 import com.elamed.almag.data.Responce;
 
 import java.io.DataOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Client {

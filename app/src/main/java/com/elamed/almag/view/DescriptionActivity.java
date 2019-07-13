@@ -1,9 +1,9 @@
 package com.elamed.almag.view;
 
-import android.support.design.widget.AppBarLayout;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -24,14 +24,15 @@ public class DescriptionActivity extends AppCompatActivity {
         setContentView(R.layout.activity_description_view);
 
         WebView webView = findViewById(R.id.webViewDescription);
-        Disease d = (Disease) getIntent().getSerializableExtra("disease");
+        final Disease d = (Disease) getIntent().getSerializableExtra("disease");
         String article = (String) getIntent().getSerializableExtra("article");
+
         if (d != null) {
             webView.loadDataWithBaseURL("file:///android_asset/", d.getDescription(), "text/html", "utf-8", null);
+            findViewById(R.id.fabWrapperTreat).setVisibility(View.VISIBLE);
         } else if (article != null) {
             webView.loadDataWithBaseURL("file:///android_asset/", article, "text/html", "utf-8", null);
         }
-        // disable scroll on touch
         webView.setOnTouchListener(new View.OnTouchListener() {
 
             public boolean onTouch(View v, MotionEvent event) {
@@ -57,7 +58,16 @@ public class DescriptionActivity extends AppCompatActivity {
                 finish();
             }
         });
-
+        findViewById(R.id.treat).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (d != null) {
+                    Intent intent = new Intent(getApplicationContext(), NewTimetableActivity.class);
+                    intent.putExtra("disease", d);
+                    startActivity(intent);
+                }
+            }
+        });
     }
 
 

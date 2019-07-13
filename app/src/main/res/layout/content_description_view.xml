@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".view.ListDiseasesActivity"
+    android:paddingBottom="@dimen/paddingBottomContent"
     tools:showIn="@layout/activity_description_view">
 
     <ScrollView
@@ -12,12 +13,13 @@
         android:gravity="center"
         android:orientation="vertical"
         android:paddingTop="80dp"
-        android:paddingBottom="65dp"
         android:scrollbars="vertical">
 
         <WebView
             android:id="@+id/webViewDescription"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="3dp"
+            android:animationCache="true"/>
     </ScrollView>
 </android.support.design.widget.CoordinatorLayout>

@@ -5,27 +5,46 @@
     android:id="@+id/scrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="60dp"
+    android:paddingBottom="@dimen/paddingBottomContent"
     tools:context=".view.MainActivity">
 
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
         <LinearLayout
+            android:id="@+id/buttonTreating"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="90dp"
+            android:background="#E1EFDF"
+            android:gravity="center"
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/textView2"
-                android:layout_width="match_parent"
-                android:layout_height="90dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:background="#E1EFDF"
                 android:gravity="center"
                 android:text="@string/planTreatingView"
                 android:textColor="#697369"
                 android:textSize="@dimen/textSizeTopHead"
                 android:textStyle="bold" />
 
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/arrowTreating"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/arrow"
+                android:rotation="180" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/treatingLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
             <LinearLayout
                 android:id="@+id/layoutDetails"
@@ -47,15 +66,6 @@
                         android:text="@string/tabHomeDetails"
                         android:textColor="@color/textColorForMainActivity"
                         android:textSize="@dimen/textSizeMainMenu" />
-
-                    <!--<TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="start|top"
-                        android:layout_weight="1"
-                        android:text="@string/aboutDetailsMainActivity"
-                        android:textColor="@color/mainColor"
-                        android:textSize="@dimen/textSizeDescriptionMainMenu" />-->
 
 
                 </LinearLayout>
@@ -97,10 +107,20 @@
                 android:layout_height="1dp"
                 android:background="?android:attr/listDivider" />
 
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/buttonInformation"
+            android:layout_width="match_parent"
+            android:layout_height="90dp"
+            android:background="#E1EFDF"
+            android:gravity="center"
+            android:orientation="vertical">
+
             <TextView
-                android:id="@+id/Menu"
-                android:layout_width="match_parent"
-                android:layout_height="90dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:background="#E1EFDF"
                 android:gravity="center"
@@ -109,6 +129,50 @@
                 android:textSize="@dimen/textSizeTopHead"
                 android:textStyle="bold" />
 
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/arrowInfo"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/arrow"
+                android:rotation="180" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/informationLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/layoutMagnetoterapy"
+                android:layout_width="match_parent"
+                android:layout_height="90dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="5dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="@string/magnitotherapy"
+                        android:textColor="@color/textColorForMainActivity"
+                        android:textSize="@dimen/textSizeMainMenu" />
+
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?android:attr/listDivider" />
 
             <LinearLayout
                 android:id="@+id/layoutDiseases"
@@ -171,7 +235,7 @@
                 android:background="?android:attr/listDivider" />
 
             <LinearLayout
-                android:id="@+id/layoutPhone"
+                android:id="@+id/layoutOtherDevices"
                 android:layout_width="match_parent"
                 android:layout_height="90dp">
 
@@ -187,12 +251,115 @@
                         android:layout_gravity="center"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="@string/phone"
+                        android:text="@string/otherDevices"
                         android:textColor="@color/textColorForMainActivity"
                         android:textSize="@dimen/textSizeMainMenu" />
 
                 </LinearLayout>
             </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/buttonFeedback"
+            android:layout_width="match_parent"
+            android:layout_height="90dp"
+            android:background="#E1EFDF"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="#E1EFDF"
+                android:gravity="center"
+                android:text="@string/feedback"
+                android:textColor="#697369"
+                android:textSize="@dimen/textSizeTopHead"
+                android:textStyle="bold" />
+
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/arrowFeedback"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/arrow"
+                android:rotation="180" />
 
         </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/feedbackLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?android:attr/listDivider" />
+
+            <LinearLayout
+                android:id="@+id/layoutFeedbackCall"
+                android:layout_width="match_parent"
+                android:layout_height="90dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="5dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="@string/feedbackCall"
+                        android:textColor="@color/textColorForMainActivity"
+                        android:textSize="@dimen/textSizeMainMenu" />
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?android:attr/listDivider" />
+
+            <LinearLayout
+                android:id="@+id/layoutFeedbackEmail"
+                android:layout_width="match_parent"
+                android:layout_height="90dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="5dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="@string/feedbackEmail"
+                        android:textColor="@color/textColorForMainActivity"
+                        android:textSize="@dimen/textSizeMainMenu" />
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?android:attr/listDivider" />
+        </LinearLayout>
+
+    </LinearLayout>
 </ScrollView>

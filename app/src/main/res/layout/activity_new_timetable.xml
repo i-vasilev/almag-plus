@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:scrollbarStyle="outsideOverlay"
     tools:context=".view.NewTimetableActivity">
 
     <include layout="@layout/toolbar" />
@@ -26,7 +28,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="start|bottom"
-        android:layout_marginLeft="30dp"
+        android:layout_marginLeft="@dimen/marginHorizontalButton"
         android:layout_marginBottom="@dimen/margin_down_buttons"
         android:background="@drawable/round_button"
         android:padding="3dp"
@@ -55,10 +57,10 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:elevation="16dp"
-                android:text="&#60;"
+                android:text="@string/back"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/mainColor"
-                android:textSize="50sp"
+                android:textSize="@dimen/textButtonSize"
                 android:textStyle="bold" />
         </FrameLayout>
     </LinearLayout>
@@ -70,7 +72,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end|bottom"
-        android:layout_marginRight="30dp"
+        android:layout_marginRight="@dimen/marginHorizontalButton"
         android:layout_marginBottom="@dimen/margin_down_buttons"
         android:background="@drawable/round_button"
         android:padding="3dp"
@@ -95,14 +97,14 @@
 
 
             <TextView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:elevation="16dp"
                 android:text="OK"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/mainColor"
-                android:textSize="28sp"
+                android:textSize="@dimen/textButtonSize"
                 android:textStyle="bold" />
         </FrameLayout>
     </LinearLayout>

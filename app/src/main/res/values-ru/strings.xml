@@ -40,7 +40,19 @@
     <string name="remindBefore">Напомнить за</string>
     <string name="AlmagPlus">АЛМАГ+</string>
     <string name="articles">ИНФОРМАЦИЯ</string>
-    <string name="time_of_procedure">ВРЕМЯ ПРОЦЕДУРЫ</string>
-    <string name="phone">ОБРАТНАЯ СВЯЗЬ</string>
+    <string name="time_of_procedure">НАПОМИНАНИЕ О ПРОЦЕДУРЕ</string>
+    <string name="feedback">ОБРАТНАЯ СВЯЗЬ</string>
+    <string name="magnitotherapy">МАГНИТОТЕРАПИЯ</string>
+    <string name="back">НАЗАД</string>
+    <string name="editPlan">ИЗМЕНИТЬ</string>
+    <string name="newPlan">НОВЫЙ</string>
+    <string name="otherDevices">ДРУГИЕ ПРИБОРЫ</string>
+    <string name="treat">ЛЕЧИТЬ</string>
+    <string name="start">НАЧАТЬ</string>
+    <string name="repeat">ПОВТОРИТЬ</string>
+    <string name="remind">НАПОМИНАНИЕ О ПРОЦЕДУРЕ</string>
+    <string name="title_activity_feedback">\"\"</string>
+    <string name="feedbackCall">ПОЗВОНИТЬ</string>
+    <string name="feedbackEmail">НАПИСАТЬ</string>
 
 </resources>

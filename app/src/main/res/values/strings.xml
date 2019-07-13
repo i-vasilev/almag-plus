@@ -40,8 +40,14 @@
     <string name="remindBefore">Remind before</string>
     <string name="AlmagPlus">ALMAG+</string>
     <string name="articles">INFORMATION</string>
-    <string name="time_of_procedure">Time of procedure</string>
-    <string name="phone">FEEDBACK</string>
+    <string name="time_of_procedure">PROCEDURE REMINDER</string>
+    <string name="feedback">FEEDBACK</string>
+    <string name="magnitotherapy">MAGNITOTHERAPY</string>
+    <string name="back">BACK</string>
+    <string name="editPlan">EDIT</string>
+    <string name="start">START</string>
+    <string name="repeat">REPEAT</string>
+    <string name="remind">REMIND ABOUT PROCEDURE</string>
 
     <string-array name="remindBefore">
         <item>не напоминать</item>
@@ -49,4 +55,10 @@
         <item>10 минут</item>
         <item>15 минут</item>
     </string-array>
+    <string name="newPlan">NEW</string>
+    <string name="otherDevices">OTHER DEVICES</string>
+    <string name="treat">TREAT</string>
+    <string name="title_activity_feedback">FeedbackActivity</string>
+    <string name="feedbackCall">CALL</string>
+    <string name="feedbackEmail">EMAIL</string>
 </resources>

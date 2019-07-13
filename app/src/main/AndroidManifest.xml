@@ -7,12 +7,6 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
-    <!--  общая телефония -->
-    <uses-feature android:name="android.hardware.telephony" />
-    <!--  CDMA-телефония -->
-    <uses-feature android:name="android.hardware.telephony.cdma" />
-    <!--  GSM-телефония -->
-    <uses-feature android:name="android.hardware.telephony.gsm" />
 
     <application xmlns:tools="http://schemas.android.com/tools"
         android:allowBackup="true"
@@ -33,16 +27,18 @@
         <activity
             android:name=".view.DescriptionActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".view.ListDiseasesActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".view.NewTimetableActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/title_activity_new_timetable"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".view.DetailsActivity"
             android:label="@string/title_activity_new_timetable"
@@ -76,8 +72,6 @@
             android:name=".view.LoadingActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Transparent" />
-
-
     </application>
 
 </manifest>

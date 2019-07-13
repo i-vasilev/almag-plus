@@ -37,6 +37,7 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
     ParcelablePlanDetalization planDetalization;
     private Vibrator vibrator;
     private Ringtone ringtone;
+    protected boolean isButtonPressed = false;
     private static String ACTION_CLOSE_ALARM = "com.elamed.almag.CLOSE_ALARM";
 
     @Override
@@ -62,8 +63,6 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
 
         ImageButton okButton = findViewById(R.id.ok_alarm);
         okButton.setOnClickListener(this);
-        ImageButton cancelButton = findViewById(R.id.cancel_alarm);
-        cancelButton.setOnClickListener(this);
         ImageButton repeatButton = findViewById(R.id.repeat_alarm);
         repeatButton.setOnClickListener(this);
 
@@ -78,7 +77,8 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
         CloseAlarmReceiver closeAlarmReceiver = new CloseAlarmReceiver();
         registerReceiver(closeAlarmReceiver, filter);
         AsyncRequest ar = new AsyncRequest();
-        ar.execute("");        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        ar.execute("");
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         AppBarLayout appBarLayout = findViewById(R.id.appbar);
@@ -94,19 +94,34 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
     }
 
     @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+//        if (false) {
+//            isButtonPressed = true;
+//            Intent mainActivity = new Intent(this.getApplicationContext(), MainActivity.class);
+//            startActivityForResult(mainActivity, 0);
+//            closeActivity();
+//        }
+    }
+
+    @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.ok_alarm:
                 UpdaterData.updateProcedure(procedure, true, getApplicationContext());
                 break;
-            case R.id.cancel_alarm:
-                UpdaterData.updateProcedure(procedure, false, getApplicationContext());
-                break;
             case R.id.repeat_alarm:
                 repeatAlarm();
                 break;
         }
+        isButtonPressed = true;
         Intent mainActivity = new Intent(this.getApplicationContext(), MainActivity.class);
+        mainActivity.putExtra("goToCalendar", "yes");
         startActivityForResult(mainActivity, 0);
         closeActivity();
     }
@@ -134,7 +149,6 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
         if (ringtone != null && ringtone.isPlaying()) {
             ringtone.stop();
         }
-
         android.os.Process.killProcess(android.os.Process.myUid());
     }
 
@@ -161,7 +175,7 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
     class CloseAlarmReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            if (intent.getAction().equals(ACTION_CLOSE_ALARM)) {
+            if (intent.getAction().equals(ACTION_CLOSE_ALARM) && !isButtonPressed) {
                 repeatAlarm();
                 closeActivity();
             }

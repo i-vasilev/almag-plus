@@ -20,7 +20,8 @@
         android:id="@+id/fabWrapperBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal|bottom"
+        android:layout_gravity="left|bottom"
+        android:layout_marginLeft="@dimen/marginHorizontalButton"
         android:layout_marginBottom="@dimen/margin_down_buttons"
         android:background="@drawable/round_button"
         android:padding="3dp"
@@ -49,10 +50,55 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:elevation="16dp"
-                android:text="&#60;"
+                android:text="@string/back"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/mainColor"
-                android:textSize="50sp"
+                android:textSize="@dimen/textButtonSize"
+                android:textStyle="bold" />
+        </FrameLayout>
+    </LinearLayout>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/fabWrapperTreat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_gravity="right|bottom"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="@dimen/margin_down_buttons"
+        android:background="@drawable/round_button"
+        android:padding="3dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:showIn="@layout/avtivity_calendar">
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right">
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/treat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/white"
+                android:backgroundTint="@android:color/white"
+                android:clickable="true"
+                android:scaleType="center"
+                app:fabSize="normal" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:elevation="16dp"
+                android:text="@string/treat"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/mainColor"
+                android:textSize="@dimen/textButtonSize"
                 android:textStyle="bold" />
         </FrameLayout>
     </LinearLayout>

@@ -557,17 +557,16 @@ public class UpdaterData {
         return result;
     }
 
-    public static Disease getArticleByName(String name) {
+    public static String getArticleByName(String name) {
         DBHelper dbHelper = DBHelper.getInstance();
         SQLiteDatabase database = dbHelper.getReadableDatabase();
         String[] selectionArgs = {name};
-        Disease result = new Disease();
+        String result = "";
         Cursor cursor = database.query(DBHelper.TABLE_ADDITIONAL_ARTICLES, null, DBHelper.KEY_NAME_ADDITIONAL_ARTICLES + "= ?",
                 selectionArgs, null, null, null, null);
         if (cursor.moveToNext()) {
             int additionalArticleColumn = cursor.getColumnIndex(DBHelper.KEY_ARTICLE_ADDITIONAL_ARTICLES);
-            result.setDescription(cursor.getString(additionalArticleColumn));
-            result.setName(name);
+            result = cursor.getString(additionalArticleColumn);
         }
         return result;
     }
