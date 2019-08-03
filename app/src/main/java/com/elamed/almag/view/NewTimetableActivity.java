@@ -1,5 +1,6 @@
 package com.elamed.almag.view;
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
@@ -43,6 +44,7 @@ public class NewTimetableActivity extends AppCompatActivity {
     private Timetable timetable;
     private TimePicker picker;
     private NumberPicker minutePicker;
+    private Boolean goToCalendar = false;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -62,6 +64,10 @@ public class NewTimetableActivity extends AppCompatActivity {
         ToolbarSizer.setAppBarHeight(appBarLayout, getResources());
         appBarLayout.setClickable(true);
 
+        String extra = getIntent().getStringExtra("goToCalendar");
+        if (extra != null) {
+            goToCalendar = extra.equals("yes");
+        }
         LinearLayout layout = findViewById(R.id.layout_toolbar);
         ViewGroup.LayoutParams params = layout.getLayoutParams();
         params.width = layout.getResources().getDimensionPixelSize(R.dimen.widthToolbat);
@@ -81,7 +87,6 @@ public class NewTimetableActivity extends AppCompatActivity {
 
 
         List<String> listPlans = UpdaterData.getStringPlans();
-        //ArrayAdapter<String> adapterPlans = new ArrayAdapter<>(this, R.layout.multiline_spinner_item, listPlans);
         DropdownItemAdapter adapterPlans = new DropdownItemAdapter(this, R.layout.multiline_spinner_item, listPlans, i);
         adapterPlans.setDropDownViewResource(R.layout.multiline_spinner_dropdown_item);
         Spinner plans = findViewById(R.id.plan_name);
@@ -89,7 +94,6 @@ public class NewTimetableActivity extends AppCompatActivity {
 
 
         List<String> listNames = UpdaterData.getStringDiseases();
-        //ArrayAdapter<String> adapter = new ArrayAdapter<>(getApplicationContext(), R.layout.multiline_spinner_item, listNames);
         DropdownItemAdapter adapter = new DropdownItemAdapter(this, R.layout.multiline_spinner_item, listNames, i);
         adapter.setDropDownViewResource(R.layout.multiline_spinner_dropdown_item);
 
@@ -99,11 +103,10 @@ public class NewTimetableActivity extends AppCompatActivity {
         if (disease != null) {
             treatments.setSelection(listNames.indexOf(disease.getName()));
         } else {
-            timetable = (Timetable) getIntent().getParcelableExtra("timetable");
+            timetable = getIntent().getParcelableExtra("timetable");
             isChanging = timetable != null;
             if (isChanging) {
                 EditText interval = findViewById(R.id.editTextInterval);
-                TimePicker timePicker = findViewById(R.id.timeNewTimetable);
                 EditText countOfProcedures = findViewById(R.id.editTextCountOfProcedures);
 
                 treatments.setSelection(listNames.indexOf(timetable.getName()));
@@ -116,47 +119,42 @@ public class NewTimetableActivity extends AppCompatActivity {
                 calendar.setTimeInMillis(timetable.getTime());
                 calendar = timetable.getRemindBefore().addTime(calendar);
 
-                timePicker.setHour(calendar.get(Calendar.HOUR_OF_DAY));
+                picker.setHour(calendar.get(Calendar.HOUR_OF_DAY));
                 setMinute(calendar.get(Calendar.MINUTE));
             }
 
         }
-        findViewById(R.id.back).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
+        findViewById(R.id.back).setOnClickListener(v -> finish());
+        findViewById(R.id.ok).setOnClickListener(v -> {
+            Spinner plans1 = findViewById(R.id.plan_name);
+            Spinner treatment = findViewById(R.id.disease_name);
+            TimePicker timePicker = findViewById(R.id.timeNewTimetable);
+            EditText countOfProcedures = findViewById(R.id.editTextCountOfProcedures);
+            Spinner remindBeforeSpinner = findViewById(R.id.spinner_remindBefore);
+
+            if (!isChanging) {
+                timetable = new Timetable();
             }
-        });
-        findViewById(R.id.ok).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Spinner plans = findViewById(R.id.plan_name);
-                Spinner treatment = findViewById(R.id.disease_name);
-                EditText interval = findViewById(R.id.editTextInterval);
-                TimePicker timePicker = findViewById(R.id.timeNewTimetable);
-                EditText countOfProcedures = findViewById(R.id.editTextCountOfProcedures);
-                Spinner remindBeforeSpinner = findViewById(R.id.spinner_remindBefore);
+            timetable.setIdPlan(UpdaterData.getIdByDescriptionPlan(plans1.getSelectedItem().toString()));
+            timetable.setName(String.valueOf(treatment.getSelectedItem()));
+            Calendar calendar = Calendar.getInstance();
+            RemindBefore remindBefore1 = RemindBefore.valueOf(remindBeforeSpinner.getSelectedItemPosition());
+            timetable.setRemindBefore(remindBefore1);
+            calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH), timePicker.getHour(), getMinute(), 0);
+            timetable.setTime(remindBefore1.takeTime(calendar).getTimeInMillis());
+            timetable.setDurationOfTreatment(Integer.parseInt(countOfProcedures.getText().toString()));
+            timetable.setInterval(1);
 
-                if (!isChanging) {
-                    timetable = new Timetable();
-                }
-                timetable.setIdPlan(UpdaterData.getIdByDescriptionPlan(plans.getSelectedItem().toString()));
-                timetable.setName(String.valueOf(treatment.getSelectedItem()));
-                Calendar calendar = Calendar.getInstance();
-                RemindBefore remindBefore = RemindBefore.valueOf(remindBeforeSpinner.getSelectedItemPosition());
-                timetable.setRemindBefore(remindBefore);
-                calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH), timePicker.getHour(), getMinute(), 0);
-                timetable.setTime(remindBefore.takeTime(calendar).getTimeInMillis());
-                timetable.setDurationOfTreatment(Integer.parseInt(countOfProcedures.getText().toString()));
-                timetable.setInterval(1);
-
-                if (isChanging) {
-                    UpdaterData.updateTimetable(timetable, getApplicationContext());
-                } else {
-                    UpdaterData.insertNewTimetable(timetable, getApplicationContext());
-                }
-                UpdaterData.updateAdapters();
-                finish();
+            if (isChanging) {
+                UpdaterData.updateTimetable(timetable, getApplicationContext());
+            } else {
+                UpdaterData.insertNewTimetable(timetable, getApplicationContext());
+            }
+            UpdaterData.updateAdapters();
+            finish();
+            if (goToCalendar) {
+                Intent intent = new Intent(getApplicationContext(), CalendarActivity.class);
+                startActivity(intent);
             }
         });
         plans.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -236,6 +234,4 @@ public class NewTimetableActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
-
 }

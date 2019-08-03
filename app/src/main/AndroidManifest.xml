@@ -8,21 +8,24 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
 
-    <application xmlns:tools="http://schemas.android.com/tools"
+    <application
         android:allowBackup="true"
         android:hardwareAccelerated="false"
-        android:icon="@drawable/logo_almag"
+        android:icon="@drawable/logo_elamed"
         android:label="АЛМАГ+"
         android:largeHeap="true"
         android:roundIcon="@mipmap/logo_almag_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        tools:replace="android:label">
+        tools:replace="android:label"
+        tools:ignore="GoogleAppIndexingWarning"
+        android:fullBackupContent="true">
 
         <receiver
             android:name=".data.AlarmReceiver"
             android:enabled="true"
-            android:exported="true" />
+            android:exported="true"
+            android:permission="android.permission.WAKE_LOCK" />
 
         <activity
             android:name=".view.DescriptionActivity"
@@ -31,23 +34,21 @@
         <activity
             android:name=".view.ListDiseasesActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".view.NewTimetableActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
-            android:label="@string/title_activity_new_timetable"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".view.DetailsActivity"
-            android:label="@string/title_activity_new_timetable"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".view.CalendarActivity"
             android:hardwareAccelerated="false"
-            android:label="@string/title_activity_new_timetable"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
@@ -60,7 +61,6 @@
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

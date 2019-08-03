@@ -201,6 +201,17 @@ public class UpdaterData {
         }
     }
 
+    public static Timetable getTimetableById(int id) {
+        selectAllDataFromDB();
+        for (Timetable timetable :
+                timetables) {
+            if (timetable.getId() == id) {
+                return timetable;
+            }
+        }
+        return null;
+    }
+
     public static String getNameTimetableById(int id) {
         String result = "";
         SQLiteDatabase db = DBHelper.getInstance().getReadableDatabase();

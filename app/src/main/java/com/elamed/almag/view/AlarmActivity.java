@@ -11,7 +11,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.design.widget.AppBarLayout;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -47,47 +46,47 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
 
         DBHelper.setContext(getApplicationContext());
 
-        Window window = this.getWindow();
+        final Window window = this.getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
         window.addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
         window.addFlags(WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
         procedure = getIntent().getParcelableExtra(AlarmReceiver.PROCEDURE_EXTRA_NAME);
         planDetalization = getIntent().getParcelableExtra(AlarmReceiver.PLAN_DETALIZATION_EXTRA_NAME);
 
-        TextView diseaseName = findViewById(R.id.disease_name);
+        final TextView diseaseName = findViewById(R.id.disease_name);
         diseaseName.setText(UpdaterData.getNameTimetableById(procedure.getTimetable()));
-        TextView diseaseDescription1 = findViewById(R.id.disease_description1);
+        final TextView diseaseDescription1 = findViewById(R.id.disease_description1);
         diseaseDescription1.setText(getResources().getText(R.string.durationOfProcedureNewTimetable) + ": " + planDetalization.getDuration());
-        TextView diseaseDescription2 = findViewById(R.id.disease_description2);
+        final TextView diseaseDescription2 = findViewById(R.id.disease_description2);
         diseaseDescription2.setText(getResources().getText(R.string.mode) + ": " + String.valueOf(planDetalization.getMode()));
 
-        ImageButton okButton = findViewById(R.id.ok_alarm);
+        final ImageButton okButton = findViewById(R.id.ok_alarm);
         okButton.setOnClickListener(this);
-        ImageButton repeatButton = findViewById(R.id.repeat_alarm);
+        final ImageButton repeatButton = findViewById(R.id.repeat_alarm);
         repeatButton.setOnClickListener(this);
+        final ImageButton moveButton = findViewById(R.id.move_alarm);
+        moveButton.setOnClickListener(this);
 
-        Uri ringtoneUri = RingtoneManager.getActualDefaultRingtoneUri(getApplicationContext(), RingtoneManager.TYPE_ALARM);
+        final Uri ringtoneUri = RingtoneManager.getActualDefaultRingtoneUri(getApplicationContext(), RingtoneManager.TYPE_ALARM);
         ringtone = RingtoneManager.getRingtone(getApplicationContext(), ringtoneUri);
         if (ringtone != null) {
             ringtone.setLooping(true);
             ringtone.play();
         }
         createWaveFormVibrationUsingVibrationEffectAndAmplitude();
-        IntentFilter filter = new IntentFilter(ACTION_CLOSE_ALARM);
-        CloseAlarmReceiver closeAlarmReceiver = new CloseAlarmReceiver();
+        final IntentFilter filter = new IntentFilter(ACTION_CLOSE_ALARM);
+        final CloseAlarmReceiver closeAlarmReceiver = new CloseAlarmReceiver();
         registerReceiver(closeAlarmReceiver, filter);
-        AsyncRequest ar = new AsyncRequest();
+        final AsyncRequest ar = new AsyncRequest();
         ar.execute("");
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        final Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        AppBarLayout appBarLayout = findViewById(R.id.appbar);
+        final AppBarLayout appBarLayout = findViewById(R.id.appbar);
         ToolbarSizer.setAppBarHeight(appBarLayout, getResources());
 
-        ActionBar actionBar = getSupportActionBar();
-
-        LinearLayout layout = findViewById(R.id.layout_toolbar);
-        ViewGroup.LayoutParams params = layout.getLayoutParams();
+        final LinearLayout layout = findViewById(R.id.layout_toolbar);
+        final ViewGroup.LayoutParams params = layout.getLayoutParams();
         params.width = layout.getResources().getDimensionPixelSize(R.dimen.widthToolbat);
         params.height = layout.getResources().getDimensionPixelSize(R.dimen.heightToolbar);
         layout.setLayoutParams(params);
@@ -95,39 +94,36 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onBackPressed() {
-        //super.onBackPressed();
-    }
-
-    @Override
-    public void onWindowFocusChanged(boolean hasFocus) {
-        super.onWindowFocusChanged(hasFocus);
-//        if (false) {
-//            isButtonPressed = true;
-//            Intent mainActivity = new Intent(this.getApplicationContext(), MainActivity.class);
-//            startActivityForResult(mainActivity, 0);
-//            closeActivity();
-//        }
     }
 
     @Override
     public void onClick(View view) {
+        Intent intent = new Intent(this.getApplicationContext(), MainActivity.class);
         switch (view.getId()) {
             case R.id.ok_alarm:
                 UpdaterData.updateProcedure(procedure, true, getApplicationContext());
+                intent.putExtra("goToCalendar", "yes");
                 break;
             case R.id.repeat_alarm:
                 repeatAlarm();
                 break;
+            case R.id.move_alarm:
+                intent = moveAlarm();
+                break;
         }
         isButtonPressed = true;
-        Intent mainActivity = new Intent(this.getApplicationContext(), MainActivity.class);
-        mainActivity.putExtra("goToCalendar", "yes");
-        startActivityForResult(mainActivity, 0);
         closeActivity();
+        startActivityForResult(intent, 0);
+    }
+
+    private Intent moveAlarm() {
+        final Intent intent = new Intent(getApplicationContext(), NewTimetableActivity.class);
+        intent.putExtra("timetable", UpdaterData.getTimetableById(procedure.getTimetable()));
+        return intent;
     }
 
     private void repeatAlarm() {
-        AlarmReceiver am = new AlarmReceiver();
+        final AlarmReceiver am = new AlarmReceiver();
         am.setProcedure(procedure);
         java.util.Calendar cal_alarm = java.util.Calendar.getInstance();
         cal_alarm.setTimeInMillis(procedure.getTime());
@@ -150,6 +146,7 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
             ringtone.stop();
         }
         android.os.Process.killProcess(android.os.Process.myUid());
+        finish();
     }
 
     class AsyncRequest extends AsyncTask<String, String, String> {
@@ -167,7 +164,7 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
 
-            Intent intent = new Intent(ACTION_CLOSE_ALARM);
+            final Intent intent = new Intent(ACTION_CLOSE_ALARM);
             sendBroadcast(intent);
         }
     }

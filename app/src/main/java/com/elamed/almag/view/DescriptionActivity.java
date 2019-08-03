@@ -33,12 +33,7 @@ public class DescriptionActivity extends AppCompatActivity {
         } else if (article != null) {
             webView.loadDataWithBaseURL("file:///android_asset/", article, "text/html", "utf-8", null);
         }
-        webView.setOnTouchListener(new View.OnTouchListener() {
-
-            public boolean onTouch(View v, MotionEvent event) {
-                return (event.getAction() == MotionEvent.ACTION_MOVE);
-            }
-        });
+        webView.setOnTouchListener((v, event) -> (event.getAction() == MotionEvent.ACTION_MOVE));
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -52,20 +47,12 @@ public class DescriptionActivity extends AppCompatActivity {
         layout.setLayoutParams(params);
 
 
-        findViewById(R.id.back).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-        findViewById(R.id.treat).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (d != null) {
-                    Intent intent = new Intent(getApplicationContext(), NewTimetableActivity.class);
-                    intent.putExtra("disease", d);
-                    startActivity(intent);
-                }
+        findViewById(R.id.back).setOnClickListener(v -> finish());
+        findViewById(R.id.treat).setOnClickListener(v -> {
+            if (d != null) {
+                Intent intent = new Intent(getApplicationContext(), NewTimetableActivity.class);
+                intent.putExtra("disease", d);
+                startActivity(intent);
             }
         });
     }

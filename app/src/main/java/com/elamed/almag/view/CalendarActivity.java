@@ -2,20 +2,15 @@ package com.elamed.almag.view;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.design.widget.AppBarLayout;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.RatingBar;
 
 import com.elamed.almag.R;
 import com.elamed.almag.ToolbarSizer;
@@ -36,11 +31,12 @@ public class CalendarActivity extends AppCompatActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.avtivity_calendar);
 
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         AppBarLayout appBarLayout = findViewById(R.id.appbar);
         ToolbarSizer.setAppBarHeight(appBarLayout, getResources());
@@ -71,7 +67,7 @@ public class CalendarActivity extends AppCompatActivity {
         calendarAdapter.setListener(new CalendarAdapter.onClickListener() {
             @Override
             public void onVariantClick(Calendar calendar) {
-                Disease disease =UpdaterData.getDiseaseById(UpdaterData.getIdDisease(calendar.getTimetable().getName()));
+                Disease disease = UpdaterData.getDiseaseById(UpdaterData.getIdDisease(calendar.getTimetable().getName()));
                 Intent intent = new Intent(CalendarActivity.this, DescriptionActivity.class);
                 intent.putExtra("disease", disease);
                 startActivityForResult(intent, 1);

@@ -46,13 +46,22 @@
     <string name="back">НАЗАД</string>
     <string name="editPlan">ИЗМЕНИТЬ</string>
     <string name="newPlan">НОВЫЙ</string>
-    <string name="otherDevices">ДРУГИЕ ПРИБОРЫ</string>
+    <string name="otherDevices">Другие приборы</string>
     <string name="treat">ЛЕЧИТЬ</string>
     <string name="start">НАЧАТЬ</string>
     <string name="repeat">ПОВТОРИТЬ</string>
     <string name="remind">НАПОМИНАНИЕ О ПРОЦЕДУРЕ</string>
-    <string name="title_activity_feedback">\"\"</string>
     <string name="feedbackCall">ПОЗВОНИТЬ</string>
     <string name="feedbackEmail">НАПИСАТЬ</string>
+    <string name="newPlanOfTreating">Новый план лечения</string>
+    <string name="feedbackEmailMenu">Написать</string>
+    <string name="feedbackCallMenu">Позвонить</string>
+    <string name="help">Справка</string>
+    <string name="menu">МЕНЮ</string>
+    <string name="detailsOfTreating">Детали лечения</string>
+    <string name="exit">Выход</string>
+    <string name="search">Поиск...</string>
+    <string name="move">ПЕРЕНЕСТИ</string>
+    <string name="confirmToSite">Вы хотите открыть браузер и перейти на внешний сайт компании?</string>
 
 </resources>

@@ -55,6 +55,12 @@ public class TimetableAdapter extends ArrayAdapter<Timetable> {
         }
     }
 
+    @Override
+    public void notifyDataSetChanged() {
+        super.notifyDataSetChanged();
+        checkBoxes.clear();
+    }
+
     public View getView(int position, final View convertView, final ViewGroup parent) {
         final View view = inflater.inflate(this.layout, parent, false);
 
@@ -67,12 +73,7 @@ public class TimetableAdapter extends ArrayAdapter<Timetable> {
         CheckBox include = view.findViewById(R.id.include);
         checkBoxes.add(include);
         TextView interval = view.findViewById(R.id.frequency);
-        include.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                setChecked(buttonView);
-            }
-        });
+        include.setOnCheckedChangeListener((buttonView, isChecked) -> setChecked(buttonView));
 
         nameView.setText(timetable.getName());
         Calendar calendar = Calendar.getInstance();

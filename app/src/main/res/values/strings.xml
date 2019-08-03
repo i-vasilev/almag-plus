@@ -56,9 +56,18 @@
         <item>15 минут</item>
     </string-array>
     <string name="newPlan">NEW</string>
-    <string name="otherDevices">OTHER DEVICES</string>
+    <string name="otherDevices">Other devices</string>
     <string name="treat">TREAT</string>
-    <string name="title_activity_feedback">FeedbackActivity</string>
     <string name="feedbackCall">CALL</string>
     <string name="feedbackEmail">EMAIL</string>
+    <string name="newPlanOfTreating">New plan of treating</string>
+    <string name="feedbackCallMenu">Call</string>
+    <string name="feedbackEmailMenu">Email</string>
+    <string name="help">Help</string>
+    <string name="menu">Menu</string>
+    <string name="detailsOfTreating">Details</string>
+    <string name="exit">Exit</string>
+    <string name="search">Search...</string>
+    <string name="move">MOVE</string>
+    <string name="confirmToSite">Do you want to open your browser and go to external site?</string>
 </resources>

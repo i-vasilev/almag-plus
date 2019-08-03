@@ -10,6 +10,14 @@
     android:scrollbars="vertical"
     tools:context=".view.ListDiseasesActivity">
 
+    <EditText
+        android:id="@+id/search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/search"
+        android:inputType="textPersonName" />
+
     <ListView
         android:id="@+id/list_item_diseases"
         android:layout_width="match_parent"

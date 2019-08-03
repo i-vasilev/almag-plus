@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <group android:checkableBehavior="single">
+    <group
+        android:id="@+id/treatingGroupMenu"
+        android:checkableBehavior="single">
         <item
             android:id="@+id/diseases"
             android:icon="@drawable/diseases"
@@ -12,6 +14,41 @@
         <item
             android:id="@+id/almag_plus"
             android:icon="@drawable/icon"
-            android:title="@string/almag_plus_nav_menu"/>
+            android:title="@string/almag_plus_nav_menu" />
+        <item
+            android:id="@+id/otherDevices"
+            android:icon="@drawable/icon"
+            android:title="@string/otherDevices" />
+    </group>
+
+    <group android:id="@+id/newPlanGroupMenu">
+        <item
+            android:id="@+id/details"
+            android:icon="@drawable/icon"
+            android:title="@string/detailsOfTreating" />
+        <item
+            android:id="@+id/newPlanOfTreating"
+            android:icon="@drawable/icon"
+            android:title="@string/newPlanOfTreating" />
+    </group>
+    <group android:id="@+id/feedbackGroupMenu">
+        <item
+            android:id="@+id/feedbackCall"
+            android:icon="@drawable/call"
+            android:title="@string/feedbackCallMenu" />
+        <item
+            android:id="@+id/feedbackEmail"
+            android:icon="@drawable/email"
+            android:title="@string/feedbackEmailMenu" />
+        <item
+            android:id="@+id/feedbackHelp"
+            android:icon="@drawable/help_menu"
+            android:title="@string/help" />
+    </group>
+    <group android:id="@+id/exitGroup">
+        <item
+            android:id="@+id/exit"
+            android:icon="@drawable/exit"
+            android:title="@string/exit" />
     </group>
 </menu>
